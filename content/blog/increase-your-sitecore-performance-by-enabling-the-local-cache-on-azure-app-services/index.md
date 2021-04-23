@@ -14,11 +14,11 @@ Important to know, is that the app service _can_ write to it's cached folder, bu
 
 The first step is to set the following application setting:
 
-\[code\] WEBSITE\_LOCAL\_CACHE\_OPTION = "Always" \[/code\]
+``` WEBSITE\_LOCAL\_CACHE\_OPTION = "Always" ```
 
 this will enable the local cache. It copies the shared wwwroot to the D:\\home\\wwwroot folder, but it has a limitation: by default, only 300MB will be transferred locally. As Sitecore surpasses this amount easily (a fresh Sitecore 9.1 installation takes over 1Gb of storage), this amount has to be increased. This amount can be altered by adding the following setting:
 
-\[code\] WEBSITE\_LOCAL\_CACHE\_SIZEINMB = "2000" \[/code\]
+``` WEBSITE\_LOCAL\_CACHE\_SIZEINMB = "2000" ```
 
 The amount of 2000 is the current maximum, but is enough for a Sitecore installation.
 

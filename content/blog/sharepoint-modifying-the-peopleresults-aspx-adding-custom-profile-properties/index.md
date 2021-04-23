@@ -28,6 +28,7 @@ I am gonna add this to the office information (I know it doesnt belong there, bu
 
 find the psrch-Description, and add an xsl:with-param names divi, which selects the division userprofile property from the peoplesearch results.
 
+```xml
 <div class="psrch-Description">
                         <xsl:call-template name="DisplayOfficeProfile">
                             <xsl:with-param name="title" select="jobtitle" />
@@ -37,9 +38,11 @@ find the psrch-Description, and add an xsl:with-param names divi, which selects 
                             <xsl:with-param name="divi" select="division" />
                         </xsl:call-template>
 </div>
+```
 
 now, find the DisplayOfficeProfile section and add a xsl-param name and a check + value of that parameter to display it in the results:
 
+```xml
 <xsl:template name="DisplayOfficeProfile">
         <xsl:param name="title" />
         <xsl:param name="dep" />
@@ -69,5 +72,6 @@ now, find the DisplayOfficeProfile section and add a xsl-param name and a check 
         </span>
         <br/>
     </xsl:template>
+```
 
 Save the template and press apply. Prepare for an error, but don't worry: publish the page and reload it, and your peopleresults will be updated with the custom property

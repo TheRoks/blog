@@ -3,7 +3,7 @@ module.exports = {
     title: `A blog on Sitecore, Azure, .Net and Security`,
     description: `I am a software architect, public speaker, husband and dad. Not in that order. Always learning. Always Sharing`,
     author: `Bas Lijten`,
-    //siteUrl: `https://github.com/wangonya/flexible-gatsby`,
+    siteUrl: `https://blog.baslijten.com`,
     social: {
       twitter: `baslijten`,
       facebook: ``,

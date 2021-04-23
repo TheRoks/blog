@@ -51,28 +51,38 @@ The web.config has already been updated with a ClientID and a ClientSecret. To b
 
 In the system.web section, replace the authorization node with the following snippet. This is required because other authorization options can cause the app to break.
 
-\[code language="xml"\] <authorization> <deny users="?" /> </authorization> \[/code\]
+```xml
+
+<authorization> <deny users="?" /> </authorization> 
+```
 
 The module in system.WebServer should be removed as well:
 
-\[code language="xml"\] <system.webServer> <modules> <remove name="FormsAuthenticationModule" /> </modules> </system.webServer> \[/code\]
+```xml
+
+<system.webServer> <modules> <remove name="FormsAuthenticationModule" /> </modules> </system.webServer> 
+```
 
 ## Step 5: Remove the Authentication middleware
 
 The authention middleware that gets instantiated when a MVC5 Application with default options is created, also needs to be removed. This code can be found in: App\_Start\\Startup.Auth.cs
 
-\[code language="csharp"\] // Enable the application to use a cookie to store information for the signed in user app.UseCookieAuthentication(new CookieAuthenticationOptions { AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie, LoginPath = new PathString("/Account/Login") }); // Use a cookie to temporarily store information about a user logging in with a third party login provider app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
-
-\[/code\]
+```csharp
+ 
+// Enable the application to use a cookie to store information for the signed in user 
+app.UseCookieAuthentication(new CookieAuthenticationOptions { AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie, LoginPath = new PathString("/Account/Login") }); 
+// Use a cookie to temporarily store information about a user logging in with a third party login provider app.
+UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+```
 
 ## Step 6: Add some logic to interact with SharePoint 2013
 
 The next step, is to add some logic, to interact with SharPoint. The following code has been shamelessly copied from the standard _SharePoint_ MVC template. This code creates a SharePoint context (the code contains logic to create a Azure Access Control Services or High Trust Context, based on the presence of a ClientCertificate (as described in the previous step), Dont forget to update your references to the SharePoint.Client.dll.
 
-\[code language="csharp" highlight="5"\] public ActionResult Index() { User spUser = null;
-
+```csharp
+ 
+public ActionResult Index() { User spUser = null;
 var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
-
 using (var clientContext = spContext.CreateUserClientContextForSPHost()) { if (clientContext != null) { spUser = clientContext.Web.CurrentUser;
 
 clientContext.Load(spUser, user => user.Title);
@@ -81,7 +91,8 @@ clientContext.ExecuteQuery();
 
 ViewBag.UserName = spUser.Title; } }
 
-return View(); } \[/code\]
+return View(); } 
+```
 
 In some cases, the context that is needed can't be created. This causes the error below
 
@@ -97,13 +108,14 @@ Whenever a user can't login, the context can't be created and thus, the code wit
 
 _note: this SharePointContextFilterAttribute can be used to decorate complete controllers either!_
 
-\[code language="csharp"\] \[SharePointContextFilter\] public ActionResult Index() { User spUser = null;
+```csharp
+ \[SharePointContextFilter\] public ActionResult Index() { User spUser = null;
 
 var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
 
 using (var clientContext = spContext.CreateUserClientContextForSPHost())
 
-\[/code\]
+```
 
 After completing this last step, your app is ready to make use of the all the beautiful SharePoint capabilities!
 

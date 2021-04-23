@@ -35,9 +35,10 @@ Make sure to choose "provider hosted application" in the next step, for debuggin
 
 Create a new folder in your solution with the name "Hub", and create a new class in it, called "DocumentUpdateHub". This class should contain the following code:
 
-\[code language="csharp"\] using Microsoft.AspNet.SignalR;
+```csharp
+ using Microsoft.AspNet.SignalR;
 
-namespace SignalREventReceiverWeb.Hubs { public class DocumentUpdateHub:Hub { } } \[/code\]
+namespace SignalREventReceiverWeb.Hubs { public class DocumentUpdateHub:Hub { } } ```
 
 As you see, it's just an empty class, which derives from "Hubs". Whenever updates from a client are needed, this method should contain a function which updates all Clients. In this case, we won't need to provide functionality from within other clients. The only reason to create this empty class, is to create an "endpoint" that can be used to setup DocumentUpdate specific connections.
 
@@ -49,11 +50,12 @@ After the installation of this binary, a Startup class needs to be created and m
 
 _SignalR uses websockets to push notifications to the client (and vice versa), but this is only supported by modern browsers. In  case of older browsers, fallback scenario's such as [JSONP](http://en.wikipedia.org/wiki/JSONP "JSON with Padding") are used._
 
-\[code language="csharp"\] using Microsoft.AspNet.SignalR; using Microsoft.Owin; using Microsoft.Owin.Cors; using Owin;
+```csharp
+ using Microsoft.AspNet.SignalR; using Microsoft.Owin; using Microsoft.Owin.Cors; using Owin;
 
 \[assembly: OwinStartup(typeof(SignalREventReceiverWeb.Startup))\] namespace SignalREventReceiverWeb { public class Startup { public void Configuration(IAppBuilder app) { app.Map("/signalr", map => { map.UseCors(CorsOptions.AllowAll); var config = new HubConfiguration { EnableDetailedErrors = true, EnableJSONP = true, EnableJavaScriptProxies = true
 
-}; map.RunSignalR(config); }); } } } \[/code\]
+}; map.RunSignalR(config); }); } } } ```
 
 Compile the code and start the webserver: SignalR is running!
 
@@ -96,17 +98,19 @@ In order to be able to run a _remote_ event receiver on localhost, and make it a
 
 We're only a few steps away from the final result. This next step is needed to broadcast a message, to be able to update all registred clients. First, a Model should be created. For the demo it's enough to provide the Author and Url:
 
-\[code language="csharp"\] public class Document { public string Author { get; set; } public string Url { get; set; } } \[/code\]
+```csharp
+ public class Document { public string Author { get; set; } public string Url { get; set; } } ```
 
 Now the model has been created, its possible to use this model within the eventreceiver.
 
 Line 3 and 12 provides the last part of the magic: first, a documentUpdateHub instance is retrieved (line 3), after that action, a message can be broadcasted to all clients, using the code in line 12.
 
-\[code highlight="3,12" language="csharp"\] public void ProcessOneWayEvent(SPRemoteEventProperties properties) { var documentUpdateHub = GlobalHost.ConnectionManager.GetHubContext<DocumentUpdateHub>(); var itemProperties = properties.ItemEventProperties.AfterProperties;
+```csharp
+{3,12} public void ProcessOneWayEvent(SPRemoteEventProperties properties) { var documentUpdateHub = GlobalHost.ConnectionManager.GetHubContext<DocumentUpdateHub>(); var itemProperties = properties.ItemEventProperties.AfterProperties;
 
 var document = new Document { Author = itemProperties\["\_Author"\].ToString(), Url = properties.ItemEventProperties.AfterUrl };
 
-documentUpdateHub.Clients.All.broadcastMessage(document); } \[/code\]
+documentUpdateHub.Clients.All.broadcastMessage(document); } ```
 
 ## Displaying all documents in the MVC app
 
@@ -119,15 +123,16 @@ We're almost there! To display all items in your MVC app, we need to do a few th
 
 to be able to return all documents as with JSON, the JSON library needs to be installed. We will make use of knockoutjs as well, so install these packages once again, via Nuget: just search for Newtonsoft.JSON and knockoutjs. Next, add the following code to your HomeController. This code simply loops through all the documents and eventually returns the documents as JSON. Note that this method is decorated with the "SharePointContextFilter" attribute (line 1), as the SharePoint context is, of course, needed to retrieve all documents.
 
-\[code language="csharp"\] \[SharePointContextFilter\] public ActionResult GetAllDocuments() { var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext); var camlQuery = new CamlQuery {ViewXml = @"<View><ViewFields><FieldRef Name='Author'/> <FieldRef Name='Amount'/></ViewFields></View>"}; var documentsList = new List<Document>(); using (var clientContext = spContext.CreateUserClientContextForSPAppWeb()) { if (clientContext != null) { List lstDocuments = clientContext.Web.Lists.GetByTitle("Documents"); ListItemCollection documentItemCollection = lstDocuments.GetItems(camlQuery); clientContext.Load(documentItemCollection); clientContext.ExecuteQuery();
+```csharp
+ \[SharePointContextFilter\] public ActionResult GetAllDocuments() { var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext); var camlQuery = new CamlQuery {ViewXml = @"<View><ViewFields><FieldRef Name='Author'/> <FieldRef Name='Amount'/></ViewFields></View>"}; var documentsList = new List<Document>(); using (var clientContext = spContext.CreateUserClientContextForSPAppWeb()) { if (clientContext != null) { List lstDocuments = clientContext.Web.Lists.GetByTitle("Documents"); ListItemCollection documentItemCollection = lstDocuments.GetItems(camlQuery); clientContext.Load(documentItemCollection); clientContext.ExecuteQuery();
 
 if (documentItemCollection != null) { foreach (var document in documentItemCollection) { var user = document\["Author"\] as FieldUserValue; documentsList.Add(new Document { Author = user.LookupValue, Url = document\["FileRef"\].ToString(), }); } } } }
 
-return Json(documentsList, JsonRequestBehavior.AllowGet); } } \[/code\]
+return Json(documentsList, JsonRequestBehavior.AllowGet); } } ```
 
 The last, final step is to update the Index view, to list all products and register it to listen to the messages that are broadcasted.
 
-\[code language="html"\] @{ ViewBag.Title = "Home Page"; } @Scripts.Render("~/bundles/signalr") @Scripts.Render("~/bundles/knockoutjs") <div class="jumbotron"> <h2>Welcome @ViewBag.UserName!</h2> <p class="lead"><b>Apps for SharePoint - </b>Embracing web standards, the new cloud app model gives you maximum choice and flexibility to build a new class of apps for SharePoint using familiar languages, tools, and hosting services.</p> <p><a href="http://dev.office.com" class="btn btn-primary btn-large">Learn more &raquo;</a></p> </div>
+```html @{ ViewBag.Title = "Home Page"; } @Scripts.Render("~/bundles/signalr") @Scripts.Render("~/bundles/knockoutjs") <div class="jumbotron"> <h2>Welcome @ViewBag.UserName!</h2> <p class="lead"><b>Apps for SharePoint - </b>Embracing web standards, the new cloud app model gives you maximum choice and flexibility to build a new class of apps for SharePoint using familiar languages, tools, and hosting services.</p> <p><a href="http://dev.office.com" class="btn btn-primary btn-large">Learn more &raquo;</a></p> </div>
 
 <div class="row">
 
@@ -135,11 +140,11 @@ The last, final step is to update the Index view, to list all products and regis
 
 <p class="lead"><u>Document List</u></p>
 
-<table class="table table-striped"> <thead> <tr> <th>Url</th> <th>Author</th> </tr> </thead> <tbody data-bind="foreach:viewModel.documents"> <tr> <td data-bind="text: Url"></td> <td data-bind="text: Author"></td> </tr> </tbody> </table> </div> </div> </div> \[/code\]
+<table class="table table-striped"> <thead> <tr> <th>Url</th> <th>Author</th> </tr> </thead> <tbody data-bind="foreach:viewModel.documents"> <tr> <td data-bind="text: Url"></td> <td data-bind="text: Author"></td> </tr> </tbody> </table> </div> </div> </div> ```
 
 Below you'll see the JavaScript to register for updates _and_ to push through the notifications, Note that the "SPHostUrl" querystring is appended to the request (line 3). On line 23 the 3 (!!) lines of code are shown to register to the DocumentUpdateHub.
 
-\[code language="javascript"\] <script src="/signalr/hubs"></script> <script> jQuery(document).ready(function ($) { var spHostUrl = getParameterByName("SPHostUrl"); var requestUrl = "/Home/GetAllDocuments" + "?SPHostUrl=" + spHostUrl;
+```javascript <script src="/signalr/hubs"></script> <script> jQuery(document).ready(function ($) { var spHostUrl = getParameterByName("SPHostUrl"); var requestUrl = "/Home/GetAllDocuments" + "?SPHostUrl=" + spHostUrl;
 
 $.get(requestUrl, function (returnedData) { viewModel.documents(returnedData); ko.applyBindings(viewModel); registerHubs(); });
 
@@ -153,7 +158,7 @@ $.connection.hub.start(); }
 
 var viewModel = { documents: ko.observableArray() };
 
-</script> \[/code\]
+</script> ```
 
 And this should do the trick! The source code is provided to get you up and running right away!
 

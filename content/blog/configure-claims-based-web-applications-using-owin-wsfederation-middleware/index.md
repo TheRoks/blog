@@ -77,7 +77,7 @@ The namespace has been marked with the OwinStartUp attribute. This means for thi
 
 The next, and last step, is to configure the application to use the WsFederation middleware:
 
-\[csharp highlight="3,4,5"\] public void Configuration(IAppBuilder app) { app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType); app.UseCookieAuthentication(new CookieAuthenticationOptions()); app.UseWsFederationAuthentication( new WsFederationAuthenticationOptions { MetadataAddress = "http://localhost:29702/FederationMetadata", Wtrealm = "urn:SupaDoopaRealm", Wreply = "http://localhost:16635/" } ); } \[/csharp\]
+\[csharp highlight="3,4,5"\] public void Configuration(IAppBuilder app) { app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType); app.UseCookieAuthentication(new CookieAuthenticationOptions()); app.UseWsFederationAuthentication( new WsFederationAuthenticationOptions { MetadataAddress = "http://localhost:29702/FederationMetadata", Wtrealm = "urn:SupaDoopaRealm", Wreply = "http://localhost:16635/" } ); } ```
 
 Line 5 configures the default login option to use “Cookies”. In this example, we use a constant string to specify this, but a plain old string with the text “Cookies” will be sufficient as well.
 

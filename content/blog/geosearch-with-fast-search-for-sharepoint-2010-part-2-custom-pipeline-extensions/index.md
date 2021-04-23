@@ -55,46 +55,70 @@ When other data needs to be processed, make sure to check out what it is named i
 
 This is an easy one. As we know we want to use latitude and longitude information to do some nice computations with, these ones can be defined as crawled properties. This can be done using the following powershell commands:
 
+```powershell
+
 $guid = \[System.Guid\]::NewGuid().toString()
 $propset = New-FASTSearchMetadataCategory -Name "spatial" -Propset $guid
 New-FASTSearchMetadataCrawledProperty -Name "latitude" -VariantType 5 -Propset $guid
 New-FASTSearchMetadataCrawledProperty -Name "longitude" -VariantType 5 -Propset $guid
-
+```
 the command creates a separate category named "spatial" and created two crawled properties of variant type "5", which is, [according to Technet](http://technet.microsoft.com/en-us/library/ff191231.aspx "variant type fast search for sharepoint"), a decimal.
 
 ### Between Sheets
 
 a custom pipeline extension can be any type of executable: powershell, .bat, or an .exe. In this example a .exe is build using visual studio. All have in common that they have xml as input and xml as output. For the example, the following xml is used as input:
 
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <Document>
   <CrawledProperty propertySet="00130329-0000-0130-c000-000000131346" varType="31" propertyName="ows\_WorkCity">City</CrawledProperty>
   <CrawledProperty propertySet="00130329-0000-0130-c000-000000131346" varType="31" propertyName="ows\_WorkAddress">Address</CrawledProperty>
 </Document>
-
+```
 and the output that will be created looks the same:
 
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <Document>
   <CrawledProperty propertySet="00130329-0000-0130-c000-000000131346" propertyName="latitude" varType="5">99.9999999999999</CrawledProperty>
   <CrawledProperty propertySet="00130329-0000-0130-c000-000000131346" propertyName="longitude" varType="5">99.9999999999999</CrawledProperty>
 </Document>
-
+```
 Read the input:
 
-\[code language="csharp"\] XDocument inputDoc = XDocument.Load(args\[0\]);
+```csharp
+ 
 
-//get the Location from the input item: // care: vartype == "31": ... var cities = from cp in inputDoc.Descendants("CrawledProperty") where new Guid(cp.Attribute("propertySet").Value).Equals(IN\_LOCATION) &amp;&amp; cp.Attribute("propertyName").Value == "ows\_WorkCity" &amp;&amp; cp.Attribute("varType").Value == "31" select cp.Value; \[/code\]
+XDocument inputDoc = XDocument.Load(args\[0\]);
+
+//get the Location from the input item: 
+// care: 
+vartype == "31": ... var cities = from cp in inputDoc.Descendants("CrawledProperty") where new Guid(cp.Attribute("propertySet").Value).Equals(IN\_LOCATION) &amp;&amp; cp.Attribute("propertyName").Value == "ows\_WorkCity" &amp;&amp; cp.Attribute("varType").Value == "31" select cp.Value; 
+```
 
 and write back the output:
 
-\[code language="csharp"\] // write back results var outputElement = new XElement("Document"); if (coordinate!=null) { // Add crawled properties outputElement.Add( new XElement("CrawledProperty", new XAttribute("propertySet", OUT\_GROUP), new XAttribute("propertyName", Propname), new XAttribute("varType", 5), coordinate.Longitude) ); }
+```csharp
+ 
+// write back results 
+var outputElement = new XElement("Document"); if (coordinate!=null) { 
+  // Add crawled properties 
+  outputElement.Add( new XElement("CrawledProperty", new XAttribute("propertySet", OUT\_GROUP), new XAttribute("propertyName", Propname), new XAttribute("varType", 5), coordinate.Longitude) ); }
 
-outputElement.Save(args\[1\]); \[/code\]
+outputElement.Save(args\[1\]); 
+```
 
 But what happens in between, is more interesting! the input data is simply passed through a geocode service, and the results are simply returned as spatial data. Below is a somewhat simplified overview of the code:
 
-\[code language="csharp"\] // create geocode request query (comma separated string: location, address) geocodeRequest.Query = query; //instantiate geocode service var geocodeService = new GeocodeServiceClient("BasicHttpBinding\_IGeocodeService"); // and query the service. Do whatever you want with the response! var response = geocodeService.Geocode(geocodeRequest); \[/code\]
+```csharp
+ 
+// create geocode request query (comma separated string: location, address) 
+geocodeRequest.Query = query; 
+//instantiate geocode service 
+var geocodeService = new GeocodeServiceClient("BasicHttpBinding\_IGeocodeService"); 
+// and query the service. Do whatever you want with the response! 
+var response = geocodeService.Geocode(geocodeRequest); 
+```
 
 And that is all that is needed to create the custom pipeline extension.
 
@@ -107,7 +131,9 @@ now the pipeline is ready, all that is needed, is to hook it up to the pipeline.
 3. Open the file "pipelineextensibility.xml" in the etc directory (C:\\FASTSearch\\etc)
 4. Insert the following xml:
 
+```xml
 <Run command="C:\\FASTSearch\\bin\\LocationExtractor.exe %(input)s %(output)s"> <Input> <CrawledProperty propertySet="00130329-0000-0130-c000-000000131346" varType="31" propertyName="ows\_WorkAddress" /> <CrawledProperty propertySet="00130329-0000-0130-c000-000000131346" varType="31" propertyName="ows\_WorkCity" /> </Input> <Output> <CrawledProperty propertySet="00130329-0000-0130-c000-000000131346" varType="5" propertyName="latitude" /> <CrawledProperty propertySet="00130329-0000-0130-c000-000000131346" varType="5" propertyName="longitude" /> </Output> </Run>
+```
 
 all you need to do is: map the crawled properties to a managed property, execute psctrl reset to restart the processer servers and do a full recrawl. Your data is then ready to be queried..
 

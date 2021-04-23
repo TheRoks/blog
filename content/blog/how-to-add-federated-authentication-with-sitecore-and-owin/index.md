@@ -97,7 +97,8 @@ The RST that is posted to Sitecore by ADFS, needs to be handled. At the moment o
 
 This processor throws an exception if an unsafe form post was found, but adds some exceptions to Sitecore: unsafe form posts to “/Sitecore/shell” and “/Sitecore/admin” are allowed. Unfortunately, these paths are not configurable, thus I replaced that processor by this implementation:
 
-\[csharp\] public override void Process(PreprocessRequestArgs args) { Assert.ArgumentNotNull(args, "args"); try { new SuppressFormValidation().Process(args); } catch (HttpRequestValidationException) { string rawUrl = args.Context.Request.RawUrl; if (!rawUrl.Contains("login")) { throw; } } } \[/csharp\]
+```csharp
+ public override void Process(PreprocessRequestArgs args) { Assert.ArgumentNotNull(args, "args"); try { new SuppressFormValidation().Process(args); } catch (HttpRequestValidationException) { string rawUrl = args.Context.Request.RawUrl; if (!rawUrl.Contains("login")) { throw; } } } ```
 
 These solution respects the original processor outcome, catches the exception, but adds a path that should accept an unsafe formpost as well. In any other situation: rethrow the same exception, this causes Sitecore to behave exactly the same as it did before.
 
@@ -131,7 +132,8 @@ With this OWIN configuration, the multi site requirement hasn’t been fulfilled
 
 OWIN supports pipeline branching. app.Map or app.MapWhen can be used to inject some middleware to a specific path or to a specific situation. In my case, I could use the app.MapWhen option:
 
-\[csharp\] app.MapWhen(ctx => ctx.Request.Get("host").Equals("multisite.local"), site => { Console.WriteLine("branch 1"); }); \[/csharp\]
+```csharp
+ app.MapWhen(ctx => ctx.Request.Get("host").Equals("multisite.local"), site => { Console.WriteLine("branch 1"); }); ```
 
 I used this technique to register all my sites together with its specific middleware. This can be hardcoded, but it’s better to provide the configuration in a separate configuration file, as it doesn’t require a redeployment when a Sitecore site has been added. An addition of a new option, however, does require an application pool recycle in IIS
 
@@ -145,31 +147,35 @@ Because of the choice I made for the bootstrap moment, I have access to the .Asp
 
 The cookie value can easily be retrieved, but it’s encrypted. When adding the CookieAuthenticationOptions to the CookieAuthenticationMiddleware, the TicketDataFormat is being set. This is a property which helps storing the AuthenticationTicket in a cookie. The default implementation even encrypts this data:
 
-\[csharp\] if (base.Options.TicketDataFormat == null) { IDataProtector protector = app.CreateDataProtector(new string\[\] { typeof(CookieAuthenticationMiddleware).FullName, base.Options.AuthenticationType, "v1" }); base.Options.TicketDataFormat = new TicketDataFormat(protector); } \[/csharp\]
+```csharp
+ if (base.Options.TicketDataFormat == null) { IDataProtector protector = app.CreateDataProtector(new string\[\] { typeof(CookieAuthenticationMiddleware).FullName, base.Options.AuthenticationType, "v1" }); base.Options.TicketDataFormat = new TicketDataFormat(protector); } ```
 
 As the dataprotector is used internally by the middleware, it was hard for me to decrypt that data in the cookie. By providing an own dataprotector to the TicketDataFormat, it’s easy to decrypt the cookiedata and return the AuthenticationTickets by decrypting the cookies:
 
-\[csharp\] internal class MachineKeyProtector : IDataProtector { private readonly string\[\] \_purpose = { typeof(CookieAuthenticationMiddleware).FullName, CookieAuthenticationDefaults.AuthenticationType, "v1" };
+```csharp
+ internal class MachineKeyProtector : IDataProtector { private readonly string\[\] \_purpose = { typeof(CookieAuthenticationMiddleware).FullName, CookieAuthenticationDefaults.AuthenticationType, "v1" };
 
 public byte\[\] Protect(byte\[\] userData) { return System.Web.Security.MachineKey.Protect(userData, \_purpose); }
 
-public byte\[\] Unprotect(byte\[\] protectedData) { return System.Web.Security.MachineKey.Unprotect(protectedData, \_purpose); } } \[/csharp\]
+public byte\[\] Unprotect(byte\[\] protectedData) { return System.Web.Security.MachineKey.Unprotect(protectedData, \_purpose); } } ```
 
 This function can be used to get the AuthenticationTicket from the cookie:
 
-\[code languague="csharp"\]\[/code\]
+```csharp
+
 
 private static AuthenticationTicket GetAuthenticationKeyTicket() { AuthenticationTicket ticket = null;
 
 var ctx = HttpContext.Current.Request; if (ctx.Cookies != null && ctx.Cookies\[".AspNet.Cookies"\] != null) { var cookie = ctx.Cookies\[".AspNet.Cookies"\]; var secureDataFormat = new TicketDataFormat(new MachineKeyProtector()); ticket = secureDataFormat.Unprotect(cookie.Value); } return ticket; }
 
-\[/csharp\]
+```
 
 And within that Ticket, the ClaimsIdentity can be found:
 
-\[csharp\] // Summary: // Contains user identity information as well as additional authentication state. public class AuthenticationTicket { // // Summary: // Initializes a new instance of the Microsoft.Owin.Security.AuthenticationTicket // class // // Parameters: // identity: // // properties: public AuthenticationTicket(ClaimsIdentity identity, AuthenticationProperties properties);
+```csharp
+ // Summary: // Contains user identity information as well as additional authentication state. public class AuthenticationTicket { // // Summary: // Initializes a new instance of the Microsoft.Owin.Security.AuthenticationTicket // class // // Parameters: // identity: // // properties: public AuthenticationTicket(ClaimsIdentity identity, AuthenticationProperties properties);
 
-// // Summary: // Gets the authenticated user identity. public ClaimsIdentity Identity { get; } // // Summary: // Additional state values for the authentication session. public AuthenticationProperties Properties { get; } \[/csharp\]
+// // Summary: // Gets the authenticated user identity. public ClaimsIdentity Identity { get; } // // Summary: // Additional state values for the authentication session. public AuthenticationProperties Properties { get; } ```
 
 ### SessionStore to prevent replay attacks and keep the cookies small
 

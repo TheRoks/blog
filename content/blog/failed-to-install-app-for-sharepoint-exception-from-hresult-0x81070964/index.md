@@ -6,7 +6,7 @@ coverImage: "error.png"
 
 Sometimes, when creating new SharePoint applications, the following error occurs:
 
-\[code\] CorrelationId: 014b8442-57e1-41ef-9172-db01d9482844 3> ErrorDetail: There was a problem with activating the app web definition. 3> ErrorType: App 3> ErrorTypeName: App Related 3> ExceptionMessage: Exception from HRESULT: 0x81070964 3> Source: AppWeb 3> SourceName: App Web Deployment \[/code\]
+``` CorrelationId: 014b8442-57e1-41ef-9172-db01d9482844 3> ErrorDetail: There was a problem with activating the app web definition. 3> ErrorType: App 3> ErrorTypeName: App Related 3> ExceptionMessage: Exception from HRESULT: 0x81070964 3> Source: AppWeb 3> SourceName: App Web Deployment ```
 
 This error occurs because a file is added to the SharePoint Hosted app, which shouldn't be deployed to SharePoint. In my case, this was the "app.config" file, which was added to the solution and was marked as elementfile:
 

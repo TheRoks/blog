@@ -26,7 +26,7 @@ The first thing to add to your SharePoint hosted app, is a Menu Item Custom Acti
 
 This custom action needs to be slightly modified:
 
-\[code language="xml" highlight="9,10,11,17"\] <?xml version="1.0" encoding="utf-8"?> <Elements xmlns="http://schemas.microsoft.com/sharepoint/"> <CustomAction Id="16718687-e3a7-47dd-9bf6-485810e3d5b2.PostToNewsfeedDialog" RegistrationType="List" RegistrationId="101" Location="EditControlBlock" Sequence="10001" Title="Post To Newsfeed Dialog" HostWebDialog="true" HostWebDialogHeight="420" HostWebDialogWidth="510"> <!-- Update the Url below to the page you want the custom action to use. Start the URL with the token ~remoteAppUrl if the page is in the associated web project, use ~appWebUrl if page is in the app project. --> <UrlAction Url="~appWebUrl/Pages/PostToNewsfeed.aspx?{StandardTokens}&amp;SPListItemId={ItemId}&amp;SPListId={ListId}&amp;SPApp={AppWebUrl}" /> </CustomAction> </Elements> \[/code\]
+```xml{9,10,11,17} <?xml version="1.0" encoding="utf-8"?> <Elements xmlns="http://schemas.microsoft.com/sharepoint/"> <CustomAction Id="16718687-e3a7-47dd-9bf6-485810e3d5b2.PostToNewsfeedDialog" RegistrationType="List" RegistrationId="101" Location="EditControlBlock" Sequence="10001" Title="Post To Newsfeed Dialog" HostWebDialog="true" HostWebDialogHeight="420" HostWebDialogWidth="510"> <!-- Update the Url below to the page you want the custom action to use. Start the URL with the token ~remoteAppUrl if the page is in the associated web project, use ~appWebUrl if page is in the app project. --> <UrlAction Url="~appWebUrl/Pages/PostToNewsfeed.aspx?{StandardTokens}&amp;SPListItemId={ItemId}&amp;SPListId={ListId}&amp;SPApp={AppWebUrl}" /> </CustomAction> </Elements> ```
 
 add the lines 9-11: these are not recognized by intellisense, but they do work, somehow. All they do is to make sure that the referenced page (on line 17), will open in a popup, this prevents the action from navigating away to the app itself.
 
@@ -36,15 +36,16 @@ On line 17, a querystring parameter is added, "SPApp={AppWebUrl}", as it is need
 
 Now the action itself is ready, it's time to create the message dialog. The default.aspx can be used for this action. It's important to include the control on line 2: it allows the page to be rendered inside a dialog using an iFrame.
 
-\[code language="html" highlight="2"\] <asp:Content ContentPlaceHolderID="PlaceHolderMain" runat="server"> <WebPartPages:AllowFraming runat="server" ID="AllowIFraming1" />
+```html{2} <asp:Content ContentPlaceHolderID="PlaceHolderMain" runat="server"> <WebPartPages:AllowFraming runat="server" ID="AllowIFraming1" />
 
-<asp:TextBox runat="server" ID="tb\_01" Rows="5"></asp:TextBox> <asp:Button runat="server" OnClientClick="PostToNewsfeed();" Text="Share This!"/> </asp:Content> \[/code\]
+<asp:TextBox runat="server" ID="tb\_01" Rows="5"></asp:TextBox> <asp:Button runat="server" OnClientClick="PostToNewsfeed();" Text="Share This!"/> </asp:Content> ```
 
 ## Making it all work
 
 At last, some javascript is needed. Please note that the [parseUri](https://code.google.com/p/youtube-direct-lite/source/browse/static/js/third-party/parseUri.js?r=a21281d903785631cdb3b2a0ad5bc283764070b6 "parse Uri - Steven Levithan") function is handy little function, written by Steven Levithan. It's not included in the overview, but included in  the sourcecode. It basically creates the document url from the query string parameters that were passed (line 41), and uses that document url to be posted to the timeline, along with a nice message (line 55, 79). The javascript uses the Rest API (line 54) to post the message (line 85).
 
-\[code language="javascript" highlight="41, 55, 79, 85"\] 'use strict';
+```javascript{41,55,79,85}
+'use strict';
 
 var context = SP.ClientContext.get\_current(); var documentPath; var documentName; var hostwebUrl;
 
@@ -68,7 +69,7 @@ $.ajax({ url: myurl, type: "POST", data: d, headers: { "accept": "application/js
 
 }, error: function (xhr, ajaxOptions, thrownError) { alert( "post error: " + xhr.status + ";" + thrownError); } }); }
 
-// called from the "Share This!" onclientclick event function PostToNewsfeed() { GetDocumentUrl().then(CreateNewPost); } \[/code\]
+// called from the "Share This!" onclientclick event function PostToNewsfeed() { GetDocumentUrl().then(CreateNewPost); } ```
 
 ## Deferreds
 

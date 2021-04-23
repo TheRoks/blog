@@ -39,25 +39,29 @@ The dependencygraph of Sitecore is enormous, that I decided just to investigate 
 
 First, make sure that the sitecore-feed has been registered:
 
-\[code lang="powershell"\]Register-PackageSource -Name "sitecore-myget" -Location "https://sitecore.myget.org/F/sc-packages/api/" -ProviderName "nuget"\[/code\]
+```powershell
+Register-PackageSource -Name "sitecore-myget" -Location "https://sitecore.myget.org/F/sc-packages/api/" -ProviderName "nuget"```
 
 After registration, the magic (may) happen. First I wrote a recursive script which would get all sitecore packages and its dependencies, all the way down to the very last dependency, but this took _a lot_ of time. So I decided to replace it with only the first level dependencies, which returns “enough” nuget packages.
 
 First, I retrieve _all_ package metadata from the Sitecore myget feed, using the following command:
 
-\[code lang="powershell"\] $packages = Find-Package -Source "sitecore-myget" -AllVersions $packages901 = $packages | where {$\_.Version -eq "$sc\_version" } $packages901WithReferences = $packages901 | where {$\_.Name -notlike "\*NoReferences"} $packages901NoReferences = $packages901 | where {$\_.Name -like "\*NoReferences"} \[/code\]
+```powershell
+ $packages = Find-Package -Source "sitecore-myget" -AllVersions $packages901 = $packages | where {$\_.Version -eq "$sc\_version" } $packages901WithReferences = $packages901 | where {$\_.Name -notlike "\*NoReferences"} $packages901NoReferences = $packages901 | where {$\_.Name -like "\*NoReferences"} ```
 
 The next action is to filter all Sitecore 9.0.x versions, in my case this was 9.0.1 (on line 2). In a foreach loop I iterate through all packages which do have references, to install them and get the correct metadata from them.
 
 Using
 
-\[code lang="powershell"\]$pkg = Get-package -Name $Name -RequiredVersion $Version -ErrorAction SilentlyContinue\[/code\]
+```powershell
+$pkg = Get-package -Name $Name -RequiredVersion $Version -ErrorAction SilentlyContinue```
 
 it can be validated wether or not the package is already installed. If that’s the case, the $pkg is not null and all dependencies can be checked and installed. This installation is important for later upload to VSTS package management. If installation is not required, that line can be disabled.
 
 All dependencies are stored in the form of “parent version.x” -> “child version.y”, for later analysis. When the package does not exist, it has to be looked up in an external feed using
 
-\[code lang="powershell"\]Find-Package -Name $Name -RequiredVersion $Version -Source $Source-ErrorAction SilentlyContinue\[/code\]
+```powershell
+Find-Package -Name $Name -RequiredVersion $Version -Source $Source-ErrorAction SilentlyContinue```
 
 When the package has been found, it can be installed to the local packagemanagement storage.
 

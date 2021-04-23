@@ -19,7 +19,8 @@ I remembered that there is a hidden sitecollection feature (search extensions) t
 
 This is strange, because when checking that feature.xml, we learn the following:
 
-\[code language="xml"\] <?xml version="1.0" encoding="utf-8" ?> <!-- Copyright (c) Microsoft Corporation. All rights reserved. --> <Feature Id="5EAC763D-FBF5-4d6f-A76B-EDED7DD7B0A5" Title="$Resources:SearchExtensionsFeatureTitle;" Description="$Resources:SearchExtensionsFeatureDescription;" DefaultResourceFile="Microsoft.Office.Server.Search" SolutionId="7ED6CD55-B479-4EB7-A529-E99A24C10BD3" Version="14.0.0.0" Scope="Site" Hidden="TRUE" xmlns="http://schemas.microsoft.com/sharepoint/"> <ElementManifests> <ElementManifest Location="webPartDWPFiles.xml"/> <ElementManifest Location="ExtendedSearchAdminLinks.xml"/> </ElementManifests> </Feature> \[/code\]
+```xml
+<?xml version="1.0" encoding="utf-8" ?> <!-- Copyright (c) Microsoft Corporation. All rights reserved. --> <Feature Id="5EAC763D-FBF5-4d6f-A76B-EDED7DD7B0A5" Title="$Resources:SearchExtensionsFeatureTitle;" Description="$Resources:SearchExtensionsFeatureDescription;" DefaultResourceFile="Microsoft.Office.Server.Search" SolutionId="7ED6CD55-B479-4EB7-A529-E99A24C10BD3" Version="14.0.0.0" Scope="Site" Hidden="TRUE" xmlns="http://schemas.microsoft.com/sharepoint/"> <ElementManifests> <ElementManifest Location="webPartDWPFiles.xml"/> <ElementManifest Location="ExtendedSearchAdminLinks.xml"/> </ElementManifests> </Feature> ```
 
 - There is no feature receiver
 - There is no feature dependency

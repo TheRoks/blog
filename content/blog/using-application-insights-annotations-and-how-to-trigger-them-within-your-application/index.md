@@ -46,7 +46,8 @@ I couldn't find any information about the API, but luckily, Microsoft [created s
 
 From the application, everything that needs to be done is executing the following code:
 
-\[code languagie="csharp"\] var annotation = new Annotations(); annotation.CreateAnnotation("Published content", AICategory.Deployment); \[/code\]
+```csharp
+ var annotation = new Annotations(); annotation.CreateAnnotation("Published content", AICategory.Deployment); ```
 
 In this specific example, a deployment annotation with the title "Published content" will be made, as shown in the previous image.
 

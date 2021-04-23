@@ -32,7 +32,8 @@ but all that is provided, is the following information. A single application, wh
 
 This is due to the following configuration in the applicationInsights.config:
 
-\[code language="xml"\] <TelemetryModules> <!-- Uncomment the following line to enable dependency tracking --> <!-- <Add Type="Microsoft.ApplicationInsights.DependencyCollector.DependencyTrackingTelemetryModule, Microsoft.AI.DependencyCollector"/> --> <Add Type="Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector.PerformanceCollectorModule, Microsoft.AI.PerfCounterCollector"> <! -- cut a lot if information --> </TelemetryModules> \[/code\]
+```xml
+<TelemetryModules> <!-- Uncomment the following line to enable dependency tracking --> <!-- <Add Type="Microsoft.ApplicationInsights.DependencyCollector.DependencyTrackingTelemetryModule, Microsoft.AI.DependencyCollector"/> --> <Add Type="Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector.PerformanceCollectorModule, Microsoft.AI.PerfCounterCollector"> <! -- cut a lot if information --> </TelemetryModules> ```
 
 By removing the comment and restarting the application (this is mandatory), the detailed "web" of dependencies is shown. Every element in this overview, like the application, the different  connections and the actual services can be selected and give a different overview of information. In the case below, the sql connection has been highlighted, indicating that 19.2% of the requests cause errors:
 

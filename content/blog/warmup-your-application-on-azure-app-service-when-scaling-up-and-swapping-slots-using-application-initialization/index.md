@@ -19,6 +19,7 @@ This process doesn't make the startup process _faster_, but starts the process 
 
 Within the _web.WebServer_ section of the web.config, the Applicationinitialization node may be added. Within this node, the pages that need to be warmed can be specified over here:
 
-\[code language="xml"\] <web.webServer> <applicationInitialization> <add initializationPage="/" /> <add initializationPage="/page-2" /> </applicationInitialization> </web.webServer> \[/code\]
+```xml
+<web.webServer> <applicationInitialization> <add initializationPage="/" /> <add initializationPage="/page-2" /> </applicationInitialization> </web.webServer> ```
 
 As stated previously, this action starts the process sooner, but doesn't make it faster. This applies to normal IIS as well as Azure App Services. So after a restart, and you'd immediately try to visit that website, you would experience a long loading time. But the Azure App service has a cool feature. When scaling up (manually or by using autoscale) _or_ swapping slots, a new instance is created and started. The initializationPages are being touched internally and Azure App Services _waits_ with the actual swap or addition to the Azure App Service pool until all the pages which have been defined in that section, have been loaded. This will prevent that "cold" applications will not be released, which means that there will be no "stuttering" of the application.

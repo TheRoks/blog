@@ -29,17 +29,20 @@ The MVC Controllers inherit from "[System.Web.MVC.Controller](http://msdn.micros
 - The context cannot be created yet: redirect back to the portal to gather the right information. This is mostly the case when the remoteweb has been bookmarked and the page is requested via that bookmark. The user will be redirected to SharePoint to login, and after the login, the user is redirected back to SharePoint. The check will return "OK" then.
 - The context is not available and can't be created: redirect to the error view.
 
-\[code language="csharp"\] switch (SharePointContextProvider.CheckRedirectionStatus(filterContext.HttpContext, out redirectUrl)) { case RedirectionStatus.Ok: return; case RedirectionStatus.ShouldRedirect: filterContext.Result = new RedirectResult(redirectUrl.AbsoluteUri); break; case RedirectionStatus.CanNotRedirect: filterContext.Result = new ViewResult { ViewName = "Error" }; break; }
+```csharp
+ switch (SharePointContextProvider.CheckRedirectionStatus(filterContext.HttpContext, out redirectUrl)) { case RedirectionStatus.Ok: return; case RedirectionStatus.ShouldRedirect: filterContext.Result = new RedirectResult(redirectUrl.AbsoluteUri); break; case RedirectionStatus.CanNotRedirect: filterContext.Result = new ViewResult { ViewName = "Error" }; break; }
 
-\[/code\]
+```
 
 The function on line 1, "SharePointContextProvider.CheckRedirectionStatus" not only checks wether or not the user should be redirected, but also creates the SharePointContext, whenever this is possible. The first condition for a succesful return status (return OK or ShouldRedirect) is the presence of a SPHostUrl in the querystringparameters. Using a function called GetSPHostUrl, this parameter is retrieved from the RequestUri:
 
-\[code language="csharp"\] public static Uri GetSPHostUrl(HttpRequestBase httpRequest) public static Uri GetSPHostUrl(HttpRequest httpRequest) \[/code\]
+```csharp
+ public static Uri GetSPHostUrl(HttpRequestBase httpRequest) public static Uri GetSPHostUrl(HttpRequest httpRequest) ```
 
 Whenever the context can be created, this context is stored in the HttpContext.Session. Below the HighTrustContext is listed, the implementation of the Acs variant of SaveSharePointContext is slightly different, but uses the HttpContext.Session as well.
 
-\[code language="csharp"\] protected override void SaveSharePointContext(SharePointContext spContext, HttpContextBase httpContext) { httpContext.Session\[SPContextKey\] = spContext as SharePointHighTrustContext; } \[/code\]
+```csharp
+ protected override void SaveSharePointContext(SharePointContext spContext, HttpContextBase httpContext) { httpContext.Session\[SPContextKey\] = spContext as SharePointHighTrustContext; } ``` 
 
 #### ApiController
 
@@ -64,9 +67,10 @@ Another solution was to "copy" the SharePoint provider logic, and modify this lo
 
 At first, a new SharePointContextFilterAttribute needs to be created, I chose "SharePointApiControllerContextFilter". It inherits from "System.Web.Http.Filters.ActionFilterAttribute", which is designed to work with ApiControllers:
 
-\[code language="csharp" highlight="11,13,15"\] public class SharePointApiControllerContextFilterAttribute : ActionFilterAttribute { public override void OnActionExecuting(System.Web.Http.Controllers.HttpActionContext actionContext) { if (actionContext == null) { throw new ArgumentNullException("actionContext"); }
+```csharp
+{11,13,15} public class SharePointApiControllerContextFilterAttribute : ActionFilterAttribute { public override void OnActionExecuting(System.Web.Http.Controllers.HttpActionContext actionContext) { if (actionContext == null) { throw new ArgumentNullException("actionContext"); }
 
-Uri redirectUrl; switch (SharePointApiControllerContextProvider.CheckContextStatus(actionContext.ControllerContext, out redirectUrl)) { case ContextStatus.Ok: return; case ContextStatus.NotOk: actionContext.Response = actionContext.Request.CreateErrorResponse(HttpStatusCode.MethodNotAllowed, "Context couldn't be created: access denied"); break; } } } \[/code\]
+Uri redirectUrl; switch (SharePointApiControllerContextProvider.CheckContextStatus(actionContext.ControllerContext, out redirectUrl)) { case ContextStatus.Ok: return; case ContextStatus.NotOk: actionContext.Response = actionContext.Request.CreateErrorResponse(HttpStatusCode.MethodNotAllowed, "Context couldn't be created: access denied"); break; } } } ```
 
 On lines "13 and 15" we see that 2 results are handled: Ok and NotOK. As the controller just provides data (or no data), it shouldn't take care of redirects. The app that makes use of the ApiController needs to handle possible errors and take action on that event. In case of the MVC application, it already is an application, so it makes sense to handle the redirect logic in the MVCFilterAttribute.
 
@@ -99,17 +103,20 @@ As the High Trust solution was the easiest to implement, I will start with that 
 
 The Creation of the SharePoint context for full trust solutions was quite easy: As this form of remote apps works on a Server to Server trust (with certificates), all that is needed is an identity. I used the code provided by Microsoft as the basis to start with:
 
-\[code language="csharp"\] protected override SharePointContext CreateSharePointContext(Uri spHostUrl, Uri spAppWebUrl, string spLanguage, string spClientTag, string spProductNumber, HttpRequestBase httpRequest) { WindowsIdentity logonUserIdentity = httpRequest.LogonUserIdentity; if (logonUserIdentity == null || !logonUserIdentity.IsAuthenticated || logonUserIdentity.IsGuest || logonUserIdentity.User == null) { return null; }
+```csharp
+ protected override SharePointContext CreateSharePointContext(Uri spHostUrl, Uri spAppWebUrl, string spLanguage, string spClientTag, string spProductNumber, HttpRequestBase httpRequest) { WindowsIdentity logonUserIdentity = httpRequest.LogonUserIdentity; if (logonUserIdentity == null || !logonUserIdentity.IsAuthenticated || logonUserIdentity.IsGuest || logonUserIdentity.User == null) { return null; }
 
-return new SharePointHighTrustContext(spHostUrl, spAppWebUrl, spLanguage, spClientTag, spProductNumber, logonUserIdentity); } \[/code\]
+return new SharePointHighTrustContext(spHostUrl, spAppWebUrl, spLanguage, spClientTag, spProductNumber, logonUserIdentity); } ``` 
 
 In this case, it all came down to replace the HttpRequestBase by an available property in the ControllerContext, in which the WindowsIdentity property was available. I ended up using the RequestContext, which was available in the ControllerContext:
 
-\[code language="csharp"\] protected override SharePointApiControllerContext CreateSharePointContext(Uri spHostUrl, Uri spAppWebUrl, string spLanguage, string spClientTag, string spProductNumber, HttpControllerContext httpControllerContext) { WindowsIdentity logonUserIdentity = (WindowsIdentity)httpControllerContext.RequestContext.Principal.Identity; if (logonUserIdentity == null || !logonUserIdentity.IsAuthenticated || logonUserIdentity.IsGuest || logonUserIdentity.User == null) { return null; }
+```csharp
+ protected override SharePointApiControllerContext CreateSharePointContext(Uri spHostUrl, Uri spAppWebUrl, string spLanguage, string spClientTag, string spProductNumber, HttpControllerContext httpControllerContext) { WindowsIdentity logonUserIdentity = (WindowsIdentity)httpControllerContext.RequestContext.Principal.Identity; if (logonUserIdentity == null || !logonUserIdentity.IsAuthenticated || logonUserIdentity.IsGuest || logonUserIdentity.User == null) { return null; }
 
 return new SharePointApiControllerHighTrustContext(spHostUrl, spAppWebUrl, spLanguage, spClientTag, spProductNumber, logonUserIdentity);
 
-} \[/code\]
+} 
+``` 
 
 That was all that was needed for the High Trust apps!
 
@@ -119,17 +126,21 @@ Creating the SharePoint context in a application that makes use of the Azure Acc
 
 The CreateSharePointContext is implemented as follows:
 
-\[code language="csharp"\] protected override SharePointContext CreateSharePointContext(Uri spHostUrl, Uri spAppWebUrl, string spLanguage, string spClientTag, string spProductNumber, HttpRequestBase httpRequest) { string contextTokenString = TokenHelper.GetContextTokenFromRequest(httpRequest);
+```csharp
+ protected override SharePointContext CreateSharePointContext(Uri spHostUrl, Uri spAppWebUrl, string spLanguage, string spClientTag, string spProductNumber, HttpRequestBase httpRequest) { string contextTokenString = TokenHelper.GetContextTokenFromRequest(httpRequest);
 
 if (string.IsNullOrEmpty(contextTokenString)) { return null; }
 
 //…
 
-return new SharePointAcsContext(spHostUrl, spAppWebUrl, spLanguage, spClientTag, spProductNumber, contextTokenString, contextToken); } \[/code\]
+return new SharePointAcsContext(spHostUrl, spAppWebUrl, spLanguage, spClientTag, spProductNumber, contextTokenString, contextToken); } 
+```
 
 The problem is in the method GetContextTokenFromRequest in the TokenHelper class:
 
-\[code language="csharp"\] public static string GetContextTokenFromRequest(HttpRequestBase request) { string\[\] paramNames = { "AppContext", "AppContextToken", "AccessToken", "SPAppToken" }; foreach (string paramName in paramNames) { if (!string.IsNullOrEmpty(request.Form\[paramName\])) { return request.Form\[paramName\]; } if (!string.IsNullOrEmpty(request.QueryString\[paramName\])) { return request.QueryString\[paramName\]; } } return null; } \[/code\]
+```csharp
+ public static string GetContextTokenFromRequest(HttpRequestBase request) { string\[\] paramNames = { "AppContext", "AppContextToken", "AccessToken", "SPAppToken" }; foreach (string paramName in paramNames) { if (!string.IsNullOrEmpty(request.Form\[paramName\])) { return request.Form\[paramName\]; } if (!string.IsNullOrEmpty(request.QueryString\[paramName\])) { return request.QueryString\[paramName\]; } } return null; } 
+```
 
 Within this method, the application context token is retrieved, from the request form parameters or from the querystring . After some fiddling around (or however it is called when using fiddler), It came out that after startup of an application, the app context token is send as a form parameter of the request. [According to MSDN](http://msdn.microsoft.com/en-us/library/office/jj163816.aspx "URL strings and tokens in apps for SharePoint"), it's not possible to provide the AppContextToken as a startup parameter in the querystring. As its not possible to get the original post parameters via javascript, I had to find another solution.
 
@@ -139,9 +150,11 @@ It turned out that using cookies to provide the app context token is allowed, re
 
 This is the point where the SharePointContextProvider needed a slight modification: at the moment that a SharePoint context has been created, I insert a cookie, which can be used by the ApiController:
 
-\[code language="csharp"\] if (spContext != null) { string contextTokenString = TokenHelper.GetContextTokenFromRequest(httpContext.Request); System.Web.HttpCookie cookie = new HttpCookie("appContextToken") { Value = contextTokenString, Secure = true, HttpOnly = true }; httpContext.Response.AppendCookie(cookie); SaveSharePointContext(spContext, httpContext); }
+```csharp
+ if (spContext != null) { string contextTokenString = TokenHelper.GetContextTokenFromRequest(httpContext.Request); System.Web.HttpCookie cookie = new HttpCookie("appContextToken") { Value = contextTokenString, Secure = true, HttpOnly = true }; httpContext.Response.AppendCookie(cookie); SaveSharePointContext(spContext, httpContext); }
 
-\[/code\]
+
+```
 
 _//Note: this could be solved in various ways, I just choose the "fastest" one._
 
@@ -155,21 +168,24 @@ Whenever a webAPI call is executed, which is decorated with the SharePointApiCon
 
 In my TestApiController, I copied the "default" logic that normally comes with the SharePoint MVC app, decorated the Action with our new filterattribute.
 
-\[code language="csharp"\] public class TestApiController : ApiController { \[SharePointApiControllerContextFilter\] \[System.Web.Http.HttpGet\] public string Get() { var spContext = SharePointApiControllerContextProvider.Current.GetSharePointContext(ControllerContext);
+```csharp
+ public class TestApiController : ApiController { \[SharePointApiControllerContextFilter\] \[System.Web.Http.HttpGet\] public string Get() { var spContext = SharePointApiControllerContextProvider.Current.GetSharePointContext(ControllerContext);
 
 Microsoft.SharePoint.Client.User spUser = null; using (var clientContext = spContext.CreateUserClientContextForSPHost()) { if (clientContext != null) { spUser = clientContext.Web.CurrentUser;
 
 clientContext.Load(spUser, user => user.Title);
 
-clientContext.ExecuteQuery(); } } return "user: " + spUser.Title; } } \[/code\]
+clientContext.ExecuteQuery(); } } return "user: " + spUser.Title; } } 
+```
 
 Within my MVC view, I added a <div "testapiresult">
 
 and some javascript code:
 
-\[code\]</pre> <h1></h1> <pre> @section scripts { <script type="text/javascript">// <!\[CDATA\[ $(document).ready(function () { $.get("https://localhost:44319/api/testapi/get" + location.search) .done(function (result) { $('#testapiresult').text(result); }); });
+<!-- ```</pre> <h1></h1> <pre> @section scripts { <script type="text/javascript">// <!\[CDATA\[ $(document).ready(function () { $.get("https://localhost:44319/api/testapi/get" + location.search) .done(function (result) { $('#testapiresult').text(result); }); });
 
-// \]\]></script> } \[/code\]
+// \]\]></script> } 
+```
 
 After running the code my username eventually shows up!
 

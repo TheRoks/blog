@@ -46,7 +46,8 @@ What was the reason behind the empty cache? THese caches can be flushed manually
 
 The implementation was fairly simple; First, I created the annotation library (as described in my previous blogpost), the second step was to create a publishing processor which gets executed just before the actual publish action:
 
-\[code language="csharp"\] namespace PublishAnnotations.Pipelines.Publishing { public class AnnotatePublishAction : PublishProcessor { public override void Process(PublishContext context) { var client = new TelemetryClient(TelemetryConfiguration.Active);
+```csharp
+ namespace PublishAnnotations.Pipelines.Publishing { public class AnnotatePublishAction : PublishProcessor { public override void Process(PublishContext context) { var client = new TelemetryClient(TelemetryConfiguration.Active);
 
 var dependency = new DependencyTelemetry(); dependency.Name = "Annotate publish action"; dependency.Target = "Application Insights"; dependency.Type = "Http"; var operation = client.StartOperation(dependency);
 
@@ -54,7 +55,7 @@ try { this.AnnotatePublishingAction(); dependency.ResultCode = 200.ToString(); d
 
 } catch (Exception e) { dependency.Success = false; client.TrackException(e); } finally { client.StopOperation(operation); } }
 
-public void AnnotatePublishingAction() { var annotation = new Annotations.Annotations(); annotation.CreateAnnotation("Published content", AICategory.Deployment); } } } \[/code\]
+public void AnnotatePublishingAction() { var annotation = new Annotations.Annotations(); annotation.CreateAnnotation("Published content", AICategory.Deployment); } } } ```
 
 ## Summary
 

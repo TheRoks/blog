@@ -12,7 +12,9 @@ This week I encountered the problem that the indexation of content didn’t seem
 
 Firing up the ULS-viewer learned me that my development machine was too low on resources:
 
+``` 
 _08/22/2012 21:22:36.40         mssearch.exe (0x09D4)                           0x1448        SharePoint Server Search              Content Plugin                        dtv8        Medium          At memory capacity. Load is 82%, configured to block at **80%**. have been waiting 01:57 to queue this document  \[documentmanager.cpp:969\]  d:\\office\\source\\search\\native\\gather\\plugins\\contentpi\\documentmanager.cpp_ 
+```
 
 This meant that 6.4Gb of the available 8Gb of RAM was in use. The easy solution was to kill some processes, and after shutting down some applications, I saw my CPU usage increase, which meant that Fast was crawling my content again…. for a minute or two.  So I decided to kill some more, somewhat useless, processes: Fast resumed to crawl my content again. But the process of a blocking crawl process repeated itself and it started out to be a race to keep memory usage under the 80%. Every minute I checked out if I could kill some (useless) processes to keep that memory usage below 80%: this killed my productivity. I tried to kill some of the more heavier processes to finish the crawl and even disabled some services and service applications: but for some reason my memory consumption was still too high.
 
@@ -30,7 +32,10 @@ Manually adding this key to the registry was, of course, not the solution. After
 
 The key was added using the following powershell script:
 
-_$ssa = Get-SPServiceApplication | where {$\_.DisplayName -eq "FastContentService" } $property = New-SPEnterpriseSearchExtendedConnectorProperty -SearchApplication $ssa -Name "MaxMemoryLoad" -Value "82"_
+```powershell
+
+ _$ssa = Get-SPServiceApplication | where {$\_.DisplayName -eq "FastContentService" } $property = New-SPEnterpriseSearchExtendedConnectorProperty -SearchApplication $ssa -Name "MaxMemoryLoad" -Value "82"_ 
+```
 
 The MaxMemoryValue of "82" was taken on purpose, because I wanted to make sure that this new value was showing up in the logs when crawling content, to make sure it was really this setting. After restarting the Search service, process monitor told me that the key was loaded!
 
@@ -38,7 +43,9 @@ The MaxMemoryValue of "82" was taken on purpose, because I wanted to make sure t
 
 After checking out the ULS log, I was sure that I found the correct parameter:
 
+```
 08/22/2012 22:27:22.69         mssearch.exe (0x0A78)                           0x1648        SharePoint Server Search              Content Plugin                        dtv8        Medium          At memory capacity. Load is 90%, configured to block at **_82%_**. have been waiting 02:27 to queue this document  \[documentmanager.cpp:969\]  d:\\office\\source\\search\\native\\gather\\plugins\\contentpi\\documentmanager.cpp
+```
 
 ## Summary
 

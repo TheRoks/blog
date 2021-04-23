@@ -15,7 +15,7 @@ Query suggestions is one of the features that can be manually configured by regi
 
 Now the following case: We have two labels "Centraal Beheer" and "Interpolis", who are offering the same, competitive products. Imagine that Interpolis demanded us to add a query suggestion for the word "Interpolis". That could easily be added by executing the following powershell:
 
-\[code\] $queryapp = Get-SPEnterpriseSearchServiceApplication 'FastQuery' New-SPEnterpriseSearchLanguageResourcePhrase -Language en-us -Type QuerySuggestionAlwaysSuggest -SearchApplication $queryapp -Name "Interpolis Verzekeringen" \[/code\]
+``` $queryapp = Get-SPEnterpriseSearchServiceApplication 'FastQuery' New-SPEnterpriseSearchLanguageResourcePhrase -Language en-us -Type QuerySuggestionAlwaysSuggest -SearchApplication $queryapp -Name "Interpolis Verzekeringen" ```
 
 As this query suggestion is added to the service application itself, and not scoped to a custom scope, webapplication or site collection, every web application that consumes this Search Query Application, will suggest the word interpolis. For competitive labels, this will be a major issue! Features as user contexts (till a certain spot) and keywords can be scoped on site-collection scope, suggestions not :( Imagine that the suggestion "Interpolis Verzekeringen" pops up when searching for "Intake Insurance" on the competitive site of "Centraal Beheer"? I wouldn't be too happy if I was a business owner of "Centraal Beheer".
 

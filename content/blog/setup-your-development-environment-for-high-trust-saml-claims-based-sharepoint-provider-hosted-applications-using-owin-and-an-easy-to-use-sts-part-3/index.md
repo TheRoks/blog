@@ -123,7 +123,8 @@ The next, and last step, is to configure the application to use the WsFederation
 
 This is the general, recommended options. It sets the default login type to “Cookies” and uses Federation when there is no Cookie yet. The drawback is that “HttpContext.Current.User.Identity.AuthenticationType” is set to “Cookies” as well and that the code provided by Wictor Wilen, won’t work anymore (more on that later).
 
-\[csharp\] public void Configuration(IAppBuilder app) { app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType); app.UseCookieAuthentication(new CookieAuthenticationOptions()); app.UseWsFederationAuthentication( new WsFederationAuthenticationOptions { MetadataAddress = "http://localhost:29702/FederationMetadata", Wtrealm = "urn:MySamlClaimsSharePointApp", Wreply = "http://localhost:16635/" }); } \[/csharp\]
+```csharp
+ public void Configuration(IAppBuilder app) { app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType); app.UseCookieAuthentication(new CookieAuthenticationOptions()); app.UseWsFederationAuthentication( new WsFederationAuthenticationOptions { MetadataAddress = "http://localhost:29702/FederationMetadata", Wtrealm = "urn:MySamlClaimsSharePointApp", Wreply = "http://localhost:16635/" }); } ```
 
 _Note: I configured my SharePoint provider hosted app to run in local IIS instead of IIS Express. When debugging in local IIS, Visual Studio will **not** break on breakpoints in the startupclass, however, it will in IIS Express._
 
@@ -148,9 +149,10 @@ The default SharePointContext class that Microsoft has provided has two implemen
 
 In our case, the SharePointHighTrustContextProvider is used. When logged in to the web application using windows authentication, _that_ identity is used. But we turned it off; in that case, there is a fallback to the identity that the application is running under. It comes all back to the following lines of code:
 
-\[csharp\] protected override SharePointContext CreateSharePointContext(Uri spHostUrl, Uri spAppWebUrl, string spLanguage, string spClientTag, string spProductNumber, HttpRequestBase httpRequest) { WindowsIdentity logonUserIdentity = httpRequest.LogonUserIdentity; if (logonUserIdentity == null || !logonUserIdentity.IsAuthenticated || logonUserIdentity.IsGuest || logonUserIdentity.User == null) { return null; }
+```csharp
+ protected override SharePointContext CreateSharePointContext(Uri spHostUrl, Uri spAppWebUrl, string spLanguage, string spClientTag, string spProductNumber, HttpRequestBase httpRequest) { WindowsIdentity logonUserIdentity = httpRequest.LogonUserIdentity; if (logonUserIdentity == null || !logonUserIdentity.IsAuthenticated || logonUserIdentity.IsGuest || logonUserIdentity.User == null) { return null; }
 
-return new SharePointHighTrustContext(spHostUrl, spAppWebUrl, spLanguage, spClientTag, spProductNumber, logonUserIdentity); } \[/csharp\]
+return new SharePointHighTrustContext(spHostUrl, spAppWebUrl, spLanguage, spClientTag, spProductNumber, logonUserIdentity); } ```
 
 In the CreateSharePointContext implementation method of the SharePointHighTrustContextProvider, the httpRequest.loginIdentity is used. See the different identities in the next two images, for local IIS and IIS Express:
 
