@@ -7,7 +7,7 @@ categories:
   - "search"
   - "sitecore"
   - "solr"
-coverImage: "solrerror-1.png"
+img: "./images/solrerror-1.png"
 ---
 
 Today I experienced an error while installing Sitecore 9 using the Sitecore installation framework:

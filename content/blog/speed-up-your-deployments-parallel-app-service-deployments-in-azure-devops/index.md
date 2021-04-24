@@ -3,7 +3,7 @@ title: "Speed up your deployments – parallel app service deployments in Azure 
 date: "2018-10-19"
 categories: 
   - "sitecore"
-coverImage: "img_5bc98220092e4.png"
+img: "./images/img_5bc98220092e4.png"
 ---
 
 _Note: Although this blogpost series is focused towards deploying Sitecore with the speed of light, all the information in this blogpost regular web applications and app service deployments_

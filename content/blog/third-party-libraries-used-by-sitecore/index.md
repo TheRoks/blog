@@ -7,7 +7,7 @@ categories:
   - "open-source"
   - "security"
   - "sitecore"
-coverImage: "thirdparty.png"
+img: "./images/thirdparty.png"
 ---
 
 At Achmea, we made the strategic decision to use Sitecore as platform for all of our websites, we’ve got hundreds of them. To do this at enterprise level, on such a scale, it’s important that we have guidance on infrastructure, development, deployment, security, content, DMS, just to be sure that the stable environment that we deliver, will _stay_ stable. We all know that it’s important to work with the right Sitecore assemblies (correct version) and not to overwrite them. But Sitecore doesn’t only deliver Sitecore assemblies, but 3rd party assemblies as well, for example: Microsoft assemblies, TweetSharp, Facebook API, Google API’s, et cetera. This blogpost tells us what 3rd party components Sitecore ships with, what license is tied to it and what version is delivered. It currently only includes **Sitecore 8.0 update 5** and **Sitecore 8.1 update 1**.

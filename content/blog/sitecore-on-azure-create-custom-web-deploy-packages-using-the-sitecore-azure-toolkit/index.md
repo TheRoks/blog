@@ -5,7 +5,7 @@ categories:
   - "azure"
   - "deployment"
   - "sitecore"
-coverImage: "Toolkit.jpg"
+img: "./images/Toolkit.jpg"
 ---
 
 In my previous blogpost I described how the Sitecore Azure Toolkit works and how to create web deploy packages. In this this blogpost I’ll explain how to create your own web deploy package configurations which can be used on Azure and on-premises, even with Sitecore versions older than Sitecore 8.2 update 1. You can apply role specific configurations, or add custom modules like Coveo, PowerShell Extensions, Unicorn, or even one you package up. Using these techniques will help you establish a repeatable process with standard tooling leading to decreased deployment time. How cool would it be to have Continuous Delivery and Deployment all the way to production?! I’ll demonstrate in an example, Sitecore PowerShell Extensions, how to work towards a continuous delivery process. As a bonus I’ll package Unicorn as well – future posts will depend on this example so why not tackle them now.

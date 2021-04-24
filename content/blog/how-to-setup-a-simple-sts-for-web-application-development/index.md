@@ -8,7 +8,7 @@ categories:
   - "development"
   - "mvc"
   - "security"
-coverImage: "EmbeddedSTS-Sample.png"
+img: "./images/EmbeddedSTS-Sample.png"
 ---
 
 When developing claims based web applications which need to connect to ADFS, Azure or any other STS, it’s not always possible to connect to an existing environment, for example, due to security, the absence of a test environment or an unwilling admin ;). To solve this, a lot of people _try_ to setup a local AD, ADFS, which can cause a lot of trouble, especially in an Enterprise environment. This setup is not very convenient, especially when you _just_ want to create a claims based application. Whenever SharePoint and Claims based hight trust provider hosted apps are thrown into the game, the inconvenient setup turns into a very complex situation.

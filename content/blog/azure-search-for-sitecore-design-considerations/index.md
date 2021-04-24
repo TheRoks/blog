@@ -7,7 +7,7 @@ categories:
   - "sitecore"
 tags: 
   - "sitecore"
-coverImage: "image-23.png"
+img: "./images/image-23.png"
 ---
 
 Azure Search makes up for a significant amount of costs within a Sitecore on Azure setup; apart from these costs, there are often issues with Azure Search and clients tend to move away from Azure Search and spin up a new VM with Solr - But is this really mandatory?

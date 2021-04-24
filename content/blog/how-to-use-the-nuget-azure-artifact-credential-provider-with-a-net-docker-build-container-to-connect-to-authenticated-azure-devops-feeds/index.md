@@ -3,7 +3,7 @@ title: "How to use the Nuget / Azure Artifact credential provider with a .net do
 date: "2020-08-14"
 categories: 
   - "sitecore"
-coverImage: "header.png"
+img: "./images/header.png"
 ---
 
 This blogpost describes how to add the Azure Artifact nuget credential provider to a windows based docker container for building .Net (full framework) solutions, using authenticated Azure DevOps artifacts feeds. As I couldn’t find a feasible solution, I decided to write a quick guide on how to set this up. This blogpost makes use of the provided Dockerfile structure that Sitecore provides, but the learnings can be applied in any solution. In other words: this post is not tied to the Sitecore ecosystem. To skip immediately to the instructions, click [this link](#install "#install")

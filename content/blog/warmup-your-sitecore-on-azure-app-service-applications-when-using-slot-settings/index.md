@@ -3,7 +3,7 @@ title: "Warmup your Sitecore on Azure App Service applications when using Slot s
 date: "2018-10-29"
 categories: 
   - "sitecore"
-coverImage: "img_5bd76ba9d46f6.png"
+img: "./images/img_5bd76ba9d46f6.png"
 ---
 
 Using deployment slots in Azure App Services is a best practice to deploy Sitecore your application with zero downtime. However, there are some drawbacks, for example when slot specific settings are being used. This blogpost describes how to come around these issues.

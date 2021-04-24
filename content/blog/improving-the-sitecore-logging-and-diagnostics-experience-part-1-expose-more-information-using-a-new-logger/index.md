@@ -4,7 +4,7 @@ date: "2016-03-10"
 categories: 
   - "logging"
   - "sitecore"
-coverImage: "logbanner.png"
+img: "./images/logbanner.png"
 ---
 
 Lately, I have been working on improving he Sitecore Logging Experience™. Sitecore uses the log4net framework to handle all kinds of logs, but, with the standard configuration _and_ implementation, we’re not making the most out of it.  Where [Alex Shyba](http://sitecoreblog.alexshyba.com/) wrote some excellent posts on [writing your logs to SQL](http://sitecoreblog.alexshyba.com/sitecore_logging_write_it_to_sql/) to make the logs easier accessible, I am going to take the logging capabilities to the next level! In this blogpost I will describe why the out of the box Sitecore logging implementation should be improved, how to do this and eventually I’ll show how to modify the appenders to show some extra trace information. This is all a step-up to my next blogpost, I will explain how all the Sitecore logs can be send to [application insights](https://azure.microsoft.com/en-us/services/application-insights/) on azure to get even better insights in your application usage!

@@ -5,7 +5,7 @@ categories:
   - "azure"
   - "deployment"
   - "sitecore"
-coverImage: "sitecore-azure-logo.png"
+img: "./images/sitecore-azure-logo.png"
 ---
 
 With the release of 8.2 Update 1, Sitecore also introduced support for Azure Web Apps. This release is, in my opinion, a major step for Sitecore as this update makes it very convenient to deploy to Azure using the Azure Marketplace or the provided PowerShell scripts, that’s why I think that this release is even bigger than Sitecore 8.2 initial. This deployment pattern is an interesting pattern to use on premise as well, although not all of the services can or should be used on premise. This blogpost describes how the Sitecore Azure Toolkit works. My next blogpost will describe how to use this toolkit to create your own custom web deployment packages, both for Azure _and_ your on premise installation, with even older versions than Sitecore 8.2

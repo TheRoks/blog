@@ -9,7 +9,7 @@ categories:
   - "logging"
   - "performance"
   - "vsts"
-coverImage: "img_5c180bee7caf8.png"
+img: "./images/img_5c180bee7caf8.png"
 ---
 
 In my [previous blogpost](http://blog.baslijten.com/using-application-insights-annotations-and-how-to-trigger-them-within-your-application/) I described how to create annotations within an application. This blogpost explains how this was integrated in Sitecore and how it could have helped in analyzing our severe performance problems

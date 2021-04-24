@@ -11,7 +11,7 @@ tags:
   - "sitecore-rocks"
   - "visual-studio"
   - "visual-studio-2015"
-coverImage: "sitecore-rocks-banner.png"
+img: "./images/sitecore-rocks-banner.png"
 ---
 
 If you want to use the recently released Visual Studio 2015 preview together with Sitecore rocks for sitecore development, you won't be able to install this plugin from the Visual Studio Extensions gallery: you won't even find installable plugin while searching for the plugin. This blogpost describes how to get this plugin to work.

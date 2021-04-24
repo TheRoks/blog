@@ -6,7 +6,7 @@ categories:
 tags: 
   - "jss"
   - "sitecore"
-coverImage: "2019-03-12_16-57-07.png"
+img: "./images/2019-03-12_16-57-07.png"
 ---
 
 Currently, I am researching JSS and I must say: it's great. So far, I ran into a few issues and although the documentation is great (I would recommend everyone to checkout the styleguide in the default app!), I am sure that people will run into the same issues as I did. I'll share short blogpost on these issues. Today number 1:

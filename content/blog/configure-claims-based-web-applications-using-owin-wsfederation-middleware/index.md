@@ -1,7 +1,7 @@
 ---
 title: "Configure claims based web applications using OWIN WsFederation middleware"
 date: "2015-08-04"
-coverImage: "WsFed-OWIN.png"
+img: "./images/WsFed-OWIN.png"
 ---
 
 In my previous blogpost about setting up a simple STS for web application development I wrote on how to setup this web application using the classic web.config modifications. But this can be a _lot_ easier, by using the OWIN middleware WsFederation module. This blogpost describes how to setup a secured web application using the OWIN WsFederation modules; This is the second blogpost in a blogpost series of three, where we work towards a simple (local development) solution to build High trust claims based SharePoint provider hosted apps .

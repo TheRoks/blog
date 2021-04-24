@@ -6,7 +6,7 @@ categories:
 tags: 
   - "redirects"
   - "sitecore"
-coverImage: "301-redirect.jpg"
+img: "./images/301-redirect.jpg"
 ---
 
 Redirection of urls, it’s a very common action, it’s important to maintain your SEO-value when URL’s move around and to provide friendly, short URLs. The only thing that you have to do is to create a permanent or temporary redirect, right? There are some solutions which add redirect functionality to Sitecore, for example the great [Url Rewrite](https://github.com/iamandycohen/UrlRewrite) module by Andy Cohen, which is based on the [IIS Url Rewrite 2.0](http://www.iis.net/downloads/microsoft/url-rewrite) module by Microsoft. But there are several scenario’s when you can solve several redirects in other parts of the infrastructure, or with other products. This may, for example, be the case in in larger companies, hosting multiple Sitecore instances with multiple sites, where configuring certain types of redirects in different parts of the infrastructure can prevent a lot of other configuration in those same layers, reduce complexity or prevent issues on the permissions to configure redirects.

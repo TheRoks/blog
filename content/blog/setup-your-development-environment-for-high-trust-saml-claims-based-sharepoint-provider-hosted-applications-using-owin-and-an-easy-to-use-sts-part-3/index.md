@@ -8,7 +8,7 @@ categories:
   - "sharepoint"
   - "sharepoint-2013"
   - "sharepoint-add-in"
-coverImage: "FeaturedImage.png"
+img: "./images/FeaturedImage.png"
 ---
 
 Since SharePoint 2013, web applications are created with claims based authentication by default. This works with together with High trust provider hosted apps, based on windows authentication as well. Whenever ADFS with its SAML claims pops in, it gets complicated: SharePoint needs to be configured, High trust provider apps need to configured and the app needs to communicate with SharePoint – using saml claims. Mix in a development environment, where, very likely, no ADFS is available and it gets complicated. Until now ;).

@@ -3,7 +3,7 @@ title: "Multiple Site Manager error: The requested document was not found"
 date: "2016-01-04"
 categories: 
   - "sitecore"
-coverImage: "Untitled.png"
+img: "./images/Untitled.png"
 ---
 
 Recently our admins faced an error in one of our Sitecore environments that we couldn’t explain. Sitecore tried to serve a site that it shouldn't serve, which caused a nasty error. Digging through the logs didn’t help us and due to the fact that the logs didn’t tell us anything, our admins had problems pinpointing the problem.

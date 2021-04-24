@@ -6,7 +6,7 @@ categories:
   - "azure"
   - "performance"
   - "sitecore"
-coverImage: "warmup.jpg"
+img: "./images/warmup.jpg"
 ---
 
 A common problem on Azure web apps when scaling up or swapping slots is "stuttering". At the moment an instance is added to the pool (scale out) or your swap is swapped (reload the app on the slot), your application is "cold , which means that your application on that instance needs to be reloaded. In the case of Sitecore (or other large applications), this may take a while. In this period, visitors may face a long loading time, which may take up to a few minutes.

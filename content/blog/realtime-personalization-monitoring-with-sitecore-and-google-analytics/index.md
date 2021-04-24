@@ -12,7 +12,7 @@ tags:
   - "analytics"
   - "personalization"
   - "sitecore"
-coverImage: "googleanalytics.jpg"
+img: "./images/googleanalytics.jpg"
 ---
 
 Some of our bigger sites, which don’t run on Sitecore yet, use google analytics to realtime monitor events that happen on a website, think about forms that are submitted and personalizations that are shown to a specific user. Most of the time, external (javascript) tooling is used to inject those personalizations and an event needs to be implemented which will be send to google analytics to register that event. In Sitecore, we can implement those google analytics events by including a javascript in our razor views, but, how can we tell whether or not the component that was shown was part of a personalization flow? Was a custom datasource selected, was the completed component rendered as a personalization? This blogpost series learns you on how to determine what kind of personalizations where exposed to a user and how to tell external systems about those events. It turned out that a (beautiful) pattern can be used that Sitecore itself already introduced themselves a while ago.

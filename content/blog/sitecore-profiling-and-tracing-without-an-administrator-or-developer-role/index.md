@@ -1,7 +1,7 @@
 ---
 title: "Sitecore Profiling and tracing without an administrator or developer role"
 date: "2017-08-21"
-coverImage: "banner.png"
+img: "./images/banner.png"
 ---
 
 When working on Sitecore projects, there will popup some situations where you want to indicate performance issues. The out of the box capabilities are great, but the require a development role or and administrator account. While this might work in a lot of situations, there are situations where this just isn’t possible. For example, when having one ore more (virtual) extranet users which don’t have the Sitecore developer role and whose identities are needed to make backend calls. Performance issues might appear in those backend calls, but it may be hard to indicate where those performance sinks are located. That’s why I created a solution where the out of the box profiling and tracing options can be used, for _any_ user.

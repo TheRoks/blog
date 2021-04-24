@@ -7,7 +7,7 @@ categories:
   - "devops"
   - "docker"
   - "sitecore"
-coverImage: "image-10.png"
+img: "./images/image-10.png"
 ---
 
 In our company, we use Unicorn for content serialization, in order to be able to deploy “applicative” content like templates across our environments. For dev and test, we also provide content that we use for regression testing in these environments; we don’t (want to) sync our production content to these environments. We also had the wish to spin up environments upon request, with all of this content available in an instant, for example to validate pull requests. With 20000 yml files, the synchronization process takes at least 45 minutes: this takes way too long for a fast regression test and doesn’t fit in a fast “shift left” strategy. With the introduction of containers, things have changed, as full pre-provisioned environments can be spinned up in literally minutes.

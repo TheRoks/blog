@@ -3,7 +3,7 @@ title: "Automate your pipeline part 1: World’s fastest delivery pipeline for S
 date: "2018-10-16"
 categories: 
   - "sitecore"
-coverImage: "usain.jpg"
+img: "./images/usain.jpg"
 ---
 
 On October 9th I presented for the 3rd time at the Sitecore Symposium. In my [previous blogpost](https://blog.baslijten.com/my-sitecore-symposium-session-worlds-fasted-delivery-pipeline-for-sitecore-on-azure/) I described shared how I felt during the creation of this presentation and on the day itself. In this series of blogposts I’ll describe every subject I discussed during my presentation, which will, in the end, enable you to setup your own fully automatic deployment pipeline using standard Microsoft technologie such as msbuild, msdeploy, nuget and Azure DevOps. This blogpost is just a container for all the upcoming blogposts (which is subject to change). When you are missing a subject, feel free to get in touch with me.

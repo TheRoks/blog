@@ -5,7 +5,7 @@ categories:
   - "azure"
   - "logging"
   - "sitecore"
-coverImage: "app-insights-banner.png"
+img: "./images/app-insights-banner.png"
 ---
 
 [In my previous blogpost](http://blog.baslijten.com/improving-the-sitecore-logging-and-diagnostics-experience-part-1-expose-more-information-using-a-new-logger/) I wrote on improving the Sitecore logs, which was a prerequisite for this blogpost, to send all that logging information to Application Insights. This blogpost will explain the steps on how to do this. Application Insights is a tool, hosted on Azure, which helps to get a 360-view on your application. It tracks application health, adoption metrics and crash data. With several interactive tools it’s possible to filter out, segment data and drill down into event instances for details. With a few clicks, it’s possible to view the whole logged call-stack of your application. In this blogpost, I will explain how to send your logs to Application Insights. The great thing is: The is _not_ limited to your custom logs, but the full stack of logs, thus custom _and_ Sitecore logs, will show up in this tool. This platform is _not_ limited to Microsoft, there [are a lot of SDK’s available for other technologies](https://github.com/Microsoft?utf8=%E2%9C%93&query=application).

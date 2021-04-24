@@ -1,7 +1,7 @@
 ---
 title: "I'll be speaking at the visual studio 2013 launch in the Netherlands (13-11-2013)"
 date: "2013-11-09"
-coverImage: "visualstudio2013.png"
+img: "./images/visualstudio2013.png"
 ---
 
 November 13th is the day that Visual Studio 2013 officially will be launched to the public during a virtual Launch Event. InfoSupport organizes, toghether with the Microsoft communities [a special event around this Launch](http://blogs.infosupport.com/visual-studio-2013-launch/ "Visual Studio 2013 Launch "), with the theme:

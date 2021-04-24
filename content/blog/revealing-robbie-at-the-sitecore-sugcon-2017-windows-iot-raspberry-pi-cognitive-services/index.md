@@ -1,7 +1,7 @@
 ---
 title: "Revealing Robbie at the Sitecore SUGCON 2017 - Windows IoT, Raspberry PI, Cognitive Services"
 date: "2017-05-18"
-coverImage: "presentatie.jpg"
+img: "./images/presentatie.jpg"
 ---
 
 Today, [Rob Habraken,](https://www.robhabraken.nl/) andI have launched our newly and secretly built project at [SUGCON Europ 2017](http://www.sugcon.eu/). Something that never has been done before: a real robot that moves, interacts, communicates and executes tasks, fully driven by Sitecore XP, using additional techniques like Artificial Intelligence, Machine Learning, Natural Language Processing, Face Recognition and Emotion Detection.

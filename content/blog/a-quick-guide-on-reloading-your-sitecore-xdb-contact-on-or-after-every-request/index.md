@@ -10,7 +10,7 @@ tags:
   - "sitecore"
   - "xconnect"
   - "xdb"
-coverImage: "image.png"
+img: "./images/image.png"
 ---
 
 In our road towards realtime personalization, we were in need of reloading our xDB contact on every request, as external systems might have updated several facets with information that could or should be used within Sitecore. Out of the box, this does not happen.

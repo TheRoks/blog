@@ -3,7 +3,7 @@ title: "Getting started with sitecore: The 101-guide to the community"
 date: "2016-08-15"
 categories: 
   - "sitecore"
-coverImage: "community.jpg"
+img: "./images/community.jpg"
 ---
 
 A few years back, back in the Sitecore 7.x days, I started to work with Sitecore. I originated from the SharePoint community (take note of the capital “**P**”!), where there are SO many active bloggers. I think this was caused by a bit of the history. “Back in the SharePoint 2007 days” all the SharePoint info we got, came from google, or from reflector, as the documentation wasn’t always “that well written”. It appeared that there were a few persons actively blogging about their findings and through the years, the amount of people actively blogging, writing cool code or helping each other out, exploded, but you had (and still have) to find your ways to find all the information.

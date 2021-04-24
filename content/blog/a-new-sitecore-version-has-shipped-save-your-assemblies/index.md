@@ -1,7 +1,7 @@
 ---
 title: "A new Sitecore version has shipped, save your ass(emblies)"
 date: "2017-10-19"
-coverImage: "assemblies.png"
+img: "./images/assemblies.png"
 ---
 
 With the release of Sitecore 9.0 at the Sitecore Symposium, a lot has changed. We saw very interesting improvements on Marketing automation, new products like xConnect and Cortex and the new installation framework. With the new release, new assemblies and versions will be shipped, while others are removed. It's important to update your references to these new versions in your projects, so you won't overwite the shipped assemblies with other versions. I made a quick overview on what has changed:

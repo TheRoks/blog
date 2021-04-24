@@ -7,7 +7,7 @@ categories:
   - "containers"
   - "docker"
   - "sitecore"
-coverImage: "image-11.png"
+img: "./images/image-11.png"
 ---
 
 After following the [“getting started”  guide by Nick Wesselman](https://www.linkedin.com/pulse/sitecore-100-released-great-day-developers-nick-wesselman/), I had my first Sitecore 10 environment up and running in Sitecore, so there is no need to write about the convenient installation. But being new to Docker and (thus) new to the new approach that Sitecore uses for these development environments, I struggled a little bit in _understanding_ how everything worked together. I wanted to know about the structure, dependencies. As I couldn’t find any blogpost on the new structure/setup and how all the roles correlate to each other and how the dependencies are working, I decided to dive into it and share it. Note: there is a lot of information on the [Sitecore DevEx Containers documentation site](https://containers.doc.sitecore.com/docs/intro) and it explains how things can/should be achieved, I can really recommend this site.

@@ -1,7 +1,7 @@
 ---
 title: "How to update the default hashing algorithm for Sitecore 9 to SHA512 using msdeploy"
 date: "2018-07-23"
-coverImage: "image001-2.png"
+img: "./images/image001-2.png"
 ---
 
 A few years ago I already blogged on [updating the default hashing algorithm](http://blog.baslijten.com/sitecore-security-1-how-to-replace-the-password-hashing-algorithm/) that Sitecore used. It’s ancient, unsafe and it’s for a change! Luckily, with the introduction of msdeploy packages and the Sitecore on Azure templates, this becomes easy, without having to (manually) change the password after the hashing upgrade and manually changing the hashAlgorithm in the web.config. This can be done by using msdeploy the tool to install _and_ create msdeploy packages.In [my previous blogpost](http://blog.baslijten.com/how-to-deploy-sitecore-web-deploy-packages-using-the-vsts-azure-app-service-task/) I already showed how to add parameters to the web deploy packages, in this approach I am going to show how contents can be changed using this technique. The benefit of this approach is that it can be used with the out of the box Sitecore packages, and, when used as a source for the initial deployment, the right algorithm will be used deploy time _and_ everything will be automated. This method might look a little bit cumbersome, because a manual change might work, but with tens to hundreds of environments, you just want to have everything automated as much as possible.

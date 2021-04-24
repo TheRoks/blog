@@ -1,7 +1,7 @@
 ---
 title: "Failed to install app for SharePoint - Exception from HRESULT: 0x81070964"
 date: "2013-12-11"
-coverImage: "error.png"
+img: "./images/error.png"
 ---
 
 Sometimes, when creating new SharePoint applications, the following error occurs:

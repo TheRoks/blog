@@ -8,7 +8,7 @@ categories:
   - "open-source"
   - "sitecore"
   - "visual-studio"
-coverImage: "Validate-Package.png"
+img: "./images/Validate-Package.png"
 ---
 
 When writing code for Sitecore, this code should someday be deployed to an existing Sitecore environment. Preferably, this should happen “the first time right”. One of our guidelines to achieve this is: Don’t overwrite Sitecore files. Don’t update existing files of other packages. Don’t upgrade assembly versions. Don’t break your site. It might cause a lot of trouble without knowing where to look. When we were still working with SharePoint, there was an internal mechanism to _create_ and _remove_ deployment packages. Developers had to do their best to overwrite out of the box files, as packaging mechanisms were introduced which explicitly required to select the files that you wanted to deploy. I was (and I am) wondered that Sitecore doesn’t offer this feature (well, not as I expected it), and thus I decided to write a blogpost on what shortcomings we see, how to solve them and how to verify that things will good right.

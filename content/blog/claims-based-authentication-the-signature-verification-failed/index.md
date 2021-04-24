@@ -10,7 +10,7 @@ categories:
   - "sharepoint-2013"
   - "sts"
   - "thinktecture"
-coverImage: "img_55bdf5266b360.png"
+img: "./images/img_55bdf5266b360.png"
 ---
 
 I was working on a small addition to the [Thinktecture EmbeddedSTS](https://www.nuget.org/packages/Thinktecture.IdentityModel.EmbeddedSts/), to ease up local development for our development teams, who are building a lot of MVC applications and SharePoint provider hosted apps. We don’t want to bother them with setting up a separate AD and ADFS, so we decided to use a simple, small STS: the Thinktecture Embedded STS. One of the actions was to add a FederationMetdata endpoint. This is a small improvement, as it’s now possible to setup claims based identities via OWIN, which is [way easier](http://blogs.msdn.com/b/webdev/archive/2014/02/21/using-claims-in-your-web-app-is-easier-with-the-new-owin-security-components.aspx) to setup than via the typical web.config configuration. But there was one nifty error that was, in my case, very hard to find, but easy to fix. It turned out that the signature node may not contain any formatting, this means that spaces, line feeds and carriage returns should not be included in this Federationmetadata file

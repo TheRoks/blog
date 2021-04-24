@@ -6,7 +6,7 @@ categories:
   - "development"
   - "sitecore"
   - "vsts"
-coverImage: "img_5b748f2ca84e7.png"
+img: "./images/img_5b748f2ca84e7.png"
 ---
 
 First of all: hands down to Sitecore when they created the nuget feed a while back: it’s really, really convenient to be able to use a nuget feed for all those Sitecore packages, including their dependencies. But we had some issues with the way Sitecore versions it’s packages, the fact that we use multiple versions of Sitecore _and_ the way we wanted to provision our own reusable sitecore-specific nuget packages. Aside from that; our existing nuget-feed was a NAS which had many, many performance issues. In the end we came up with a private nuget feed per Sitecore version which contains all the Sitecore assemblies for that specific version, its dependencies and our own reusable nuget packages for that specific Sitecore version.

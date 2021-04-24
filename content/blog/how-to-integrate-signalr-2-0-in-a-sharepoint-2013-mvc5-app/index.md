@@ -14,7 +14,7 @@ tags:
   - "signalr-2-0"
   - "visual-studio"
   - "visual-studio-2013"
-coverImage: "signalR.png"
+img: "./images/signalR.png"
 ---
 
 With the introduction of Apps for SharePoint 2013 and the expansion of the SharePoint API, a whole new world opened for us, the SharePoint developers. This blogpost describes on how to integrate SignalR 2.0 into a SharePoint 2013 MVC app, with the possiblity to use [SignalR](http://signalr.net/ "SignalR Website") from your hostweb! We will end up with a nifty SharePoint application that makes use of signalR and a remote  event receiver, which uses the signalR hub to push through new items to every registred client. An example solution is provided at the end of the document, but imagine what you could do with this. I personally always include signalR solutions when building apps, to monitor all events that I am interested in when debugging/fixing apps.

@@ -3,7 +3,7 @@ title: "How to use Application insights and your visitors to detect when your si
 date: "2021-02-16"
 categories: 
   - "sitecore"
-coverImage: "image-6.png"
+img: "./images/image-6.png"
 ---
 
 When hosting high traffic websites, it’s important to keep them up and running at all times. At the moment one of them goes down, it might lead to a conversion loss or decrease in NPS. Detection of unplanned downtime is very important in these cases. In some cases, there isn’t even downtime, but \*something\* in the infrastructure prevents the website from loading (I’ll explain a few cases after the break). This blogpost will teach you how to use your visitors as a continuous monitoring beacon. Code can be found here. Also a small shoutout to my colleague Marten Bonnema who created an [AI-plugin](https://github.com/Pkiri/pwa-ai) which \*does\* work with serviceworkers.

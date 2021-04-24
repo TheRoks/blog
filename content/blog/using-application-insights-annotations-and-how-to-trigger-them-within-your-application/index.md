@@ -5,7 +5,7 @@ categories:
   - "application-insights"
   - "azure"
   - "sitecore"
-coverImage: "img_5c17ff93681b4.png"
+img: "./images/img_5c17ff93681b4.png"
 ---
 
 Recently I discovered the possibility of adding notes to specific point s in time on the application insights classic metrics. This is a very interesting way of marking specific, important events in your application lifecycle, for example, deployments. It turns out, that an Azure DevOps extension exists to mark application deployments, This might be a point in time where your applications starts to behave differently, due to a bug or new functionality. These events may arise from your application as well. An interesting event could be the time of publishing content in a Content Management System, as it might influence the behaviour of your web application. This blogpost explains how to use annotations in application insights and the things that don't work (yet)

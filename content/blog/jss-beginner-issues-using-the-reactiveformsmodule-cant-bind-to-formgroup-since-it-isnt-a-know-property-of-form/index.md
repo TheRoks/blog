@@ -5,7 +5,7 @@ categories:
   - "angular"
   - "jss"
   - "sitecore"
-coverImage: "image-4.png"
+img: "./images/image-4.png"
 ---
 
 although being a total JSS _and_ angular newbie, I wanted to create some nice forms, use an API and use some state in my application. The internet is full of solutions, but none of them fixed my issue. Read more after the break.

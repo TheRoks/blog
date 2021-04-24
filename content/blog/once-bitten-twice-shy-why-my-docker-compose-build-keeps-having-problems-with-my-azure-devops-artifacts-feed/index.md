@@ -3,7 +3,7 @@ title: "Once bitten, twice shy: Why my docker-compose build keeps having problem
 date: "2021-02-16"
 categories: 
   - "sitecore"
-coverImage: "image-8.png"
+img: "./images/image-8.png"
 ---
 
 In a previous blogpost I explained how to [setup a docker build which allows to connect to an authorized Azure Devops Artifacts feed](https://blog.baslijten.com/how-to-use-the-nuget-azure-artifact-credential-provider-with-a-net-docker-build-container-to-connect-to-authenticated-azure-devops-feeds/). I often use this feed, as it contains packages which we don't want to share in public. However, almost _every single time_ when I start fiddling around with my private feed, things break. Badly:

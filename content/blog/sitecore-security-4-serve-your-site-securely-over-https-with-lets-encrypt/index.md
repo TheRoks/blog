@@ -11,7 +11,7 @@ tags:
   - "sitecore"
   - "ssl"
   - "tls"
-coverImage: "letsencrypt.jpg"
+img: "./images/letsencrypt.jpg"
 ---
 
 In a [previous blogpost](http://blog.baslijten.com/sitecore-security-2-secure-connections-and-how-to-force-the-browser-to-use-the-secure-connection/) about the Http Strict Transport Security I explained how to force connections to make use of https to encrypt connections. A lot of people think it’s expensive, hard to implement and slow. This blogpost shows off how you can get a free, secure certificate, get your Sitecore site up-and-running in no more than 5 minutes, just by using the [Let’s Encrypt](https://letsencrypt.org/) service. Source-code can be found [here](https://github.com/BasLijten/SitecoreSecurity) on Github.

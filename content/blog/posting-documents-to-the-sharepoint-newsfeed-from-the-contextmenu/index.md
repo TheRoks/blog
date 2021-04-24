@@ -7,7 +7,7 @@ categories:
   - "javascript"
   - "rest"
   - "sharepoint-2013"
-coverImage: "newsfeed.png"
+img: "./images/newsfeed.png"
 ---
 
 SharePoint 2013 brought great things: great new social features, the API got a major extension and of course, the new introduced app model. A feature that I really missed though, was the ability to post documents to your newsfeed from the context menu. This blogpost describes how to do this.

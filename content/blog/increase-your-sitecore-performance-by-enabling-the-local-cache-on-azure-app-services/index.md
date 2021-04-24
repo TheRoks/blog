@@ -3,7 +3,7 @@ title: "Increase your (Sitecore) performance by enabling the local cache on Azur
 date: "2018-10-29"
 categories: 
   - "sitecore"
-coverImage: "img_5bd76731bb5e9.png"
+img: "./images/img_5bd76731bb5e9.png"
 ---
 
 _Although this blog focuses primarily on Sitecore, this blogpost is applicable for any application which is hosted on an Windows Azure App Service._

@@ -5,7 +5,7 @@ categories:
   - "presentation"
   - "security"
   - "sitecore"
-coverImage: "Sitecore_symposium.png"
+img: "./images/Sitecore_symposium.png"
 ---
 
 At the upcoming Sitecore Symposium, starting on September 15th, I’ll have the pleasure of presenting a session about Sitecore Security -  Keeping Hackers out: Secure Application Development for Sitecore.

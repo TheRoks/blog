@@ -9,7 +9,7 @@ tags:
   - "azure"
   - "azure-sql"
   - "paas"
-coverImage: "image-20.png"
+img: "./images/image-20.png"
 ---
 
 In the Sitecore #azure [slack channel](https://sitecorechat.slack.com) there are often discussions about pricing, scaling and performance. A common best practice which is shared in this channel is the use of Elastic Pools for your SQL databases. In this article I our findings, how you can compute the costs for elastic pools and how it will affect performance, as opposed to the default Sitecore ARM templates.  

@@ -8,7 +8,7 @@ categories:
   - "federation"
   - "owin"
   - "sitecore"
-coverImage: "img_5b64684a014dd.png"
+img: "./images/img_5b64684a014dd.png"
 ---
 
 I faced this error quite a few times now and I always forget what the root cause of this error was. To keep me away from debugging and reflecting code _again_ I wrote this blogpost 😉When the claim [http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier](http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier) is not present, Sitecore will throw this exception, although a successful login may happen! This blogpost explains the root cause and how to solve the issue

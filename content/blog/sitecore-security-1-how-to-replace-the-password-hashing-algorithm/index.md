@@ -10,7 +10,7 @@ tags:
   - "password"
   - "security"
   - "sitecore"
-coverImage: "2016-04-30_14-30-22.png"
+img: "./images/2016-04-30_14-30-22.png"
 ---
 
 Let’s face it: It’s a business nowadays to hack sites, retrieve personal information and sell them on the black markets, think of usernames, passwords, credit card details and-so-on. Often, this data is stolen using SQL injection attacks, which _may_ be possible to your Sitecore site as well, thus, it’s better to be safe than sorry. As Sitecore ships with an old hashing algorithm to handle Sitecore users login, it’s time to replace the hashing algorithm as well. When having a fresh installation, this isn’t much of an issue, but for existing installations, you will face the challenge on upgrading your existing users, because the password hashing algorithm will be changed. This blogpost will show how to upgrade the hashing algorithm, describe those challenges, and tell you how to increase your Sitecore security.

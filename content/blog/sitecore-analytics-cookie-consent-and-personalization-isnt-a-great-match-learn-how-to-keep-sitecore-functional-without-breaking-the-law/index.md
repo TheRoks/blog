@@ -9,7 +9,7 @@ tags:
   - "cookie-consent"
   - "personalization"
   - "sitecore"
-coverImage: "image-5.png"
+img: "./images/image-5.png"
 ---
 
 Due to different laws (European as well as local legislation) companies have be very conversative in how they process data, while they have to take care on how they track people. People have to consent whether or not they will be tracked or not. Within Siecore, you might do both. This blogpost shares how to use your cookie consent strategy within Sitecore. In short: There are three level of cookies: Functional, analytic and tracking cookies. Without responding to the cookie consent, Only functional cookies are allowed, while analytics and tracking cookies is forbidden until a user gives approval for these kinds of functionality. Within Sitecore, this is hard to implement, due to the internal workings of Sitecore analytics and (from what I think) Sitecore bug. This blogpost explains why this is hard and how to solve this.  

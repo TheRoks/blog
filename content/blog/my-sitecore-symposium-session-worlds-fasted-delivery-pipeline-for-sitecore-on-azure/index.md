@@ -3,7 +3,7 @@ title: "My Sitecore Symposium session - World’s fasted delivery pipeline for S
 date: "2018-10-15"
 categories: 
   - "sitecore"
-coverImage: "WhatsApp-Image-2018-10-09-at-23.33.59.jpeg"
+img: "./images/WhatsApp-Image-2018-10-09-at-23.33.59.jpeg"
 ---
 
 On October 9th I presented for the 3rd time at the Sitecore Symposium. After a [security session](https://blog.baslijten.com/presenting-at-sitecore-symposium-2016-keeping-hackers-out/), our session with [Robbie the Robot](https://blog.baslijten.com/revealing-robbie-at-the-sitecore-sugcon-2017-windows-iot-raspberry-pi-cognitive-services/), I chose to give some insights into our delivery pipeline for Sitecore on Azure. In this session, I will share my road to this presentation.

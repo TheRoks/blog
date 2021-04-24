@@ -3,7 +3,7 @@ title: "I'll present at the SUGNL: 3 lessons I've learned with Sitecore on Docke
 date: "2021-03-30"
 categories: 
   - "sitecore"
-coverImage: "image-5.png"
+img: "./images/image-5.png"
 ---
 
 On April 8th, the first virtual [Sitecore Usergroup for the Netherlands](https://www.sugnl.net/) will be organized, I am proud that Achmea, my employer, may host this first virtual meetup.

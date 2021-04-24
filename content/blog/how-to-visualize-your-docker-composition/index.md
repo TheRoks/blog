@@ -3,7 +3,7 @@ title: "How to visualize your docker composition"
 date: "2020-11-06"
 categories: 
   - "sitecore"
-coverImage: "image-11.png"
+img: "./images/image-11.png"
 ---
 
 After my [previous blogpost](https://blog.baslijten.com/sitecore-10-on-docker-help-to-understand-the-composition-of-the-configuration/ "https://blog.baslijten.com/sitecore-10-on-docker-help-to-understand-the-composition-of-the-configuration/"), I received several questions how I visualized that Docker architecture. This (very short) blogpost will explain how to do this.

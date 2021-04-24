@@ -4,7 +4,7 @@ date: "2016-07-25"
 categories: 
   - "security"
   - "sitecore"
-coverImage: "article.jpg"
+img: "./images/article.jpg"
 ---
 
 Secure connections? Why would I even bother? It’s expensive, slow, complex and I’ve got a firewall anyway? On the SUGCON in Copenhagen I showed off how easy it is to intercept, modify and redirect unencrypted traffic and what can be done against this threat. This blogpost is all about why you should serve your website _always_ and _fully_ over HTTPS and how the browser can be forced to use this HTTPS connection. This blogpost will _not_ show off how to configure HTTPS and will not tell about _[all the benefits](https://www.troyhunt.com/i-wanna-go-fast-https-massive-speed-advantage/)_ of https. The technique to achieve this is bu adding a HSTS header for your domain, [google recently announced](https://security.googleblog.com/2016/07/bringing-hsts-to-wwwgooglecom.html) that they will introduce this for the complete www.google.com domain as well!

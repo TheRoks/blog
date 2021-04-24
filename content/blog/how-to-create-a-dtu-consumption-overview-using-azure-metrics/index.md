@@ -10,7 +10,7 @@ tags:
   - "azure-sql"
   - "matrics"
   - "sitecore"
-coverImage: "image-20.png"
+img: "./images/image-20.png"
 ---
 
 In [a previous blogpost](https://blog.baslijten.com/to-elastic-pool-or-not-to-elastic-pool-for-sitecore-on-azure) I showed a small overview of DTU consumptions of all Sitecore databases and how to use that overview to reduce your costs. This blogpost will explain step by step how to create that overview. An example of the file can be found [here](https://blog.baslijten.com/wp-content/uploads/2019/04/DTU-overview.xlsx)
