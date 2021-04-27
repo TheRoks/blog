@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `A blog on Sitecore, Azure, .Net and Security`,
-    description: `I am a software architect, public speaker, husband and dad. Not in that order. Always learning. Always Sharing`,
+    description: `I am a software architect, public speaker, Sitecore MVP, husband and dad. Not in that particular order. Always learning. Always Sharing`,
     author: `Bas Lijten`,
     siteUrl: `https://blog.baslijten.com`,
     social: {
