@@ -18,7 +18,7 @@ _OWIN defines a standard interface between .NET web servers and web applications
 
 Freely explained: it defines a standard interface between .Net web servers and web applications and should make it possible to run (asp.net) web applications on other servers than, for example, IIS. In this case, the OWIN modules for WsFederation make it very easy to configure authentication, as opposed to the classic web.config configuration. [Daniel Roth](https://social.msdn.microsoft.com/profile/daniel%20roth/) summarized it in one simple image in his [blogpost](http://blogs.msdn.com/b/webdev/archive/2014/02/21/using-claims-in-your-web-app-is-easier-with-the-new-owin-security-components.aspx):
 
-\[caption id="" align="alignnone" width="630"\]![configuration comparison between web.config and OWIN - property of Daniel Roth](http://blogs.msdn.com/cfs-file.ashx/__key/communityserver-blogs-components-weblogfiles/00-00-00-63-56-metablogapi/7002.image_5F00_thumb_5F00_7D44EED8.png ) configuration comparison between web.config and OWIN - property of Daniel Roth\[/caption\]
+\[caption id="" align="alignnone" width="630"\]![configuration comparison between web.config and OWIN - property of Daniel Roth](https://blogs.msdn.com/cfs-file.ashx/__key/communityserver-blogs-components-weblogfiles/00-00-00-63-56-metablogapi/7002.image_5F00_thumb_5F00_7D44EED8.png ) configuration comparison between web.config and OWIN - property of Daniel Roth\[/caption\]
 
 ## Why so easy?
 

@@ -52,7 +52,7 @@ To register the Token service with SharePoint, the following steps are needed:
 
 On this [github repository](https://github.com/BasLijten/Configure-Thinktecture-EmbeddedSts-With-SharePoint.git) I put the required certificate and the script to configure SharePoint. The only thing that needs to be done, is to enter the correct realm, I used my web application url in this case. The email claim is used as identifying claim. This is import to know, as this claim will later be used for identification in the provider hosted app _and_ for use of user rehydration!
 
-<script src="http://gist-it.appspot.com/https://github.com/BasLijten/Configure-Thinktecture-EmbeddedSts-With-SharePoint/blob/master/SetTrustedIdentityTokenIssuer.ps1"></script>
+<script src="https://gist-it.appspot.com/https://github.com/BasLijten/Configure-Thinktecture-EmbeddedSts-With-SharePoint/blob/master/SetTrustedIdentityTokenIssuer.ps1"></script>
 
 After registering the STS, it’s time to add the trusted identity provider to our web application. Go to central administration -> Application management -> Manage web applications and select the web application that you want to configure. Click on the “Authentication Provider” button in the ribbon and select the correct zone. Select the Embedded STS and press Save. This can take some time, as some internal configuration take place. No indicator will be shown! ![](images/img_55d1ecea79e02.png)
 

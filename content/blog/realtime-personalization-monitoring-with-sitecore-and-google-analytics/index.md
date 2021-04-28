@@ -23,7 +23,7 @@ All sourcecode can be found [_here_](https://github.com/BasLijten/PageExtender) 
 
 A user visits a site for the first and sees a few blocks of information on the site. As it’s the users first time, no profile has been built yet and all the default renderings are shown to the user. One of these blocks is a call out for a travel insurance. The user appears to be the owner of a small company and navigates through the “business” area of the site. Due to his behavior, the user gets the “Business user” profile applied. At the moment that he returns to the front page, the “travel insurance” callout gets replaced by a “Business travel insurance” call out, nothing special so far. Our marketers expect that for every _personalization_, a custom event will be send to google analytics with the name of that personalization, that tells google analytics (or any other analytics tool) that a personalization event has been taken place. And this is exactly the part where things become harder.
 
-<iframe class="youtube-player" title="YouTube video player" src="http://www.youtube.com/embed/T1q8jp-lKHI?vq=hd1080" width="640" height="385" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+<iframe class="youtube-player" title="YouTube video player" src="https://www.youtube.com/embed/T1q8jp-lKHI?vq=hd1080" width="640" height="385" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
 
 ## The Challenge
 
