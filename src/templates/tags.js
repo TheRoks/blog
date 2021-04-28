@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
+import SEO from '../components/seo'
 import Layout from '../components/layout'
 
 const Tags = ({ pageContext, data }) => {
@@ -10,6 +11,7 @@ const Tags = ({ pageContext, data }) => {
   } tagged with "${tag}"`
   return (
     <Layout>
+      <SEO title={tagHeader} />
       <div className="content-box clearfix">
         <div className="blog-tags">
           <h1>{tagHeader}</h1>
