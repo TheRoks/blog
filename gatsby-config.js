@@ -59,6 +59,7 @@ module.exports = {
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
+    `gatsby-plugin-sitemap`,
     // uncomment this and input the trackingId to enable google analytics
     // {
     // resolve: `gatsby-plugin-google-analytics`,
