@@ -58,7 +58,7 @@ All exposed ports are the 5 ports which are encircled:
 - 8081 (xConnect)
 - 8984 (Solr)
 
-The Traefik role exposes the 443 and 8079 ports. When navigating to [https://localhost](https://localhost):443 nothing is presented, as seen in the following screenshot:
+The Traefik role exposes the 443 and 8079 ports. When navigating to ```https://localhost:443``` nothing is presented, as seen in the following screenshot:
 
 ![](images/image-4.png)
 
